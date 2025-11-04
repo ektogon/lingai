@@ -1,39 +1,47 @@
-package com.example.lingai.ui
+package com.example.lingai.ui.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Assignment
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.lingai.ui.components.BottomNavigationBar
 import com.example.lingai.ui.screens.ExamPage
 import com.example.lingai.ui.screens.GeneratedTopicsPage
 import com.example.lingai.ui.screens.HomePage
 import com.example.lingai.ui.screens.LessonsPage
 import com.example.lingai.ui.screens.ProfilePage
+import kotlin.collections.listOf
 
-sealed class Screen(val route: String) {
-    object Home : Screen("home")
-    object Lessons : Screen("lessons")
-    object Generated : Screen("generated")
-    object Exam :Screen("exam")
-    object Profile : Screen("profile")
-}
-
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
+    val navItems = listOf(
+        NavigationItem.Home,
+        NavigationItem.Lessons,
+        NavigationItem.Generated,
+        NavigationItem.Exam,
+        NavigationItem.Profile
+    )
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
-                currentRoute = currentRoute ?: Screen.Home.route,
+                tabs = navItems,
+                currentRoute = currentRoute ?: NavigationItem.Home.route,
                 onNavigate = { route ->
                     navController.navigate(route) {
                         popUpTo(navController.graph.startDestinationId) {
@@ -45,27 +53,7 @@ fun MainNavigation() {
                 }
             )
         }
-    ) { paddingValues ->
-        NavHost(
-            navController = navController,
-            startDestination = Screen.Home.route,
-            modifier = Modifier.padding(paddingValues)
-        ) {
-            composable(Screen.Home.route) {
-                HomePage()
-            }
-            composable(Screen.Lessons.route) {
-                LessonsPage()
-            }
-            composable(Screen.Generated.route) {
-                GeneratedTopicsPage()
-            }
-            composable(Screen.Exam.route) {
-                ExamPage()
-            }
-            composable(Screen.Profile.route) {
-                ProfilePage()
-            }
-        }
+    ) {
+        NavGraph(navHostController = navController)
     }
 }
