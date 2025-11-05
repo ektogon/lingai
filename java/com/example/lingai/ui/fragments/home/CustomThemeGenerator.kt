@@ -34,8 +34,7 @@ import com.example.lingai.ui.theme.*
 fun CustomThemeGenerator() {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)

@@ -59,13 +59,12 @@ fun SeasonalThemesCarousel() {
         color = TextSecondary,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .padding(bottom = 12.dp)
     )
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(15.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp),
+        contentPadding = PaddingValues(end = 20.dp),
         modifier = Modifier
             .fillMaxWidth()
     ) {

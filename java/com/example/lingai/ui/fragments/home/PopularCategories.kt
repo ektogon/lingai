@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
@@ -30,8 +31,11 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.components.CardBlock
+import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.theme.*
 
 @Composable
@@ -39,7 +43,6 @@ fun PopularCategories() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .padding(bottom = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -60,8 +63,6 @@ fun PopularCategories() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         CategoryCard(
             modifier = Modifier.weight(1f),
@@ -72,6 +73,7 @@ fun PopularCategories() {
             backgroundColor = GreenPrimary,
             rotation = 3f
         )
+        Spacer(modifier = Modifier.padding(horizontal = 10.dp))
         CategoryCard(
             modifier = Modifier.weight(1f),
             emoji = "✈️",
@@ -83,6 +85,7 @@ fun PopularCategories() {
         )
     }
 }
+
 @Composable
 fun CategoryCard(
     modifier: Modifier = Modifier,
@@ -93,20 +96,13 @@ fun CategoryCard(
     backgroundColor: Color,
     rotation: Float
 ) {
-    Card(
+    CardBlock(
         modifier = modifier
-            .aspectRatio(1f)
             .clickable { },
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
                 modifier = Modifier
@@ -123,33 +119,38 @@ fun CategoryCard(
                 Text(text = emoji, fontSize = 32.sp)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleSmall,
-                color = TextPrimary,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = "$wordsCount слов",
-                fontSize = 12.sp,
-                color = TextSecondary
-            )
+            Text(text = title, style = MaterialTheme.typography.titleSmall, color = TextPrimary)
+            Text(text = "$wordsCount слов", fontSize = 12.sp, color = TextSecondary)
             Spacer(modifier = Modifier.height(8.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .background(GreenLight)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(progress / 100f)
-                        .background(backgroundColor)
-                )
-            }
+            ProgressBar(progress.toFloat())
         }
+    }
+}
+@Preview
+@Composable
+fun CategoryCardPrew(){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        CategoryCard(
+            modifier = Modifier.weight(1f),
+            emoji = "💼",
+            title = "Бизнес",
+            wordsCount = 120,
+            progress = 40,
+            backgroundColor = GreenPrimary,
+            rotation = 3f
+        )
+        Spacer(modifier = Modifier.padding(horizontal = 10.dp))
+        CategoryCard(
+            modifier = Modifier.weight(1f),
+            emoji = "✈️",
+            title = "Путешествия",
+            wordsCount = 95,
+            progress = 65,
+            backgroundColor = BluePrimary,
+            rotation = -3f
+        )
     }
 }

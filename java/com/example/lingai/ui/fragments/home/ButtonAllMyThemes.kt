@@ -28,7 +28,6 @@ fun ButtonAllMyThemes() {
         onClick = {  },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .height(56.dp),
         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         contentPadding = PaddingValues(0.dp),

@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.lingai.ui.theme.GreenLight
+import com.example.lingai.ui.theme.GreenPrimary
 
 @Composable
 fun CardBlock(
@@ -24,7 +26,7 @@ fun CardBlock(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        colors = CardDefaults.cardColors(containerColor = GreenPrimary),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Box(

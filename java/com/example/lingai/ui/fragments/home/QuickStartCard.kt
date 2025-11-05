@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -35,10 +36,7 @@ import com.example.lingai.ui.theme.*
 fun QuickStartCard() {
     // Quick start
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .padding(bottom = 12.dp),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -72,11 +70,10 @@ fun QuickStartCard() {
             }
         }
     }
-
+    Spacer(Modifier.padding(0.dp,10.dp,0.dp,))
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .clickable { },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
@@ -125,7 +122,7 @@ fun QuickStartCard() {
                             modifier = Modifier
                                 .clip(CircleShape)
                                 .background(GreenPrimary)
-                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                                .padding(horizontal = 8.dp, vertical = 1.dp)
                         ) {
                             Text(
                                 text = "НОВЫЙ",

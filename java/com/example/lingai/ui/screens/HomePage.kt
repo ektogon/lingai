@@ -23,6 +23,7 @@ fun HomePage() {
             .fillMaxSize()
             .background(Background)
             .verticalScroll(rememberScrollState())
+            .padding(horizontal = 20.dp)
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         CustomThemeGenerator()
