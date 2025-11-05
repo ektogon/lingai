@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -20,30 +21,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.components.CardBlock
+import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.theme.*
 
 @Composable
 fun DailyGoalProgress() {
-    // Daily goal progress
-    Card(
-    modifier = Modifier
-    .fillMaxWidth()
-    .padding(horizontal = 20.dp),
-    shape = RoundedCornerShape(16.dp),
-    colors = CardDefaults.cardColors(containerColor = White),
-    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
+    CardBlock {
+        Column {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "🎯", fontSize = 18.sp)
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "Дневная цель",
                         style = MaterialTheme.typography.titleMedium,
@@ -57,16 +50,9 @@ fun DailyGoalProgress() {
                     fontWeight = FontWeight.Bold
                 )
             }
+
             Spacer(modifier = Modifier.height(12.dp))
-            LinearProgressIndicator(
-                progress = { 0.6f },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(12.dp)
-                    .clip(RoundedCornerShape(6.dp)),
-                color = GreenPrimary,
-                trackColor = GreenLight
-            )
+            ProgressBar(60f, modifier = Modifier.height(12.dp))
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "Еще 8 слов до награды! 🏆",
@@ -76,3 +62,57 @@ fun DailyGoalProgress() {
         }
     }
 }
+//fun DailyGoalProgress() {
+//    // Daily goal progress
+//    Card(
+//    modifier = Modifier
+//    .fillMaxWidth()
+//    .padding(horizontal = 20.dp),
+//    shape = RoundedCornerShape(16.dp),
+//    colors = CardDefaults.cardColors(containerColor = White),
+//    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+//    ) {
+//        Column(modifier = Modifier.padding(20.dp)) {
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Row(
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+//                ) {
+//                    Text(text = "🎯", fontSize = 18.sp)
+//                    Text(
+//                        text = "Дневная цель",
+//                        style = MaterialTheme.typography.titleMedium,
+//                        color = TextPrimary
+//                    )
+//                }
+//                Text(
+//                    text = "12/20 слов",
+//                    fontSize = 14.sp,
+//                    color = GreenPrimary,
+//                    fontWeight = FontWeight.Bold
+//                )
+//            }
+//            Spacer(modifier = Modifier.height(12.dp))
+//            ProgressBar(60f, modifier = Modifier.height(12.dp))
+////            LinearProgressIndicator(
+////                progress = { 0.6f },
+////                modifier = Modifier
+////                    .fillMaxWidth()
+////                    .height(12.dp)
+////                    .clip(RoundedCornerShape(6.dp)),
+////                color = GreenPrimary,
+////                trackColor = GreenLight
+////            )
+//            Spacer(modifier = Modifier.height(8.dp))
+//            Text(
+//                text = "Еще 8 слов до награды! 🏆",
+//                fontSize = 12.sp,
+//                color = TextSecondary
+//            )
+//        }
+//    }
+//}
