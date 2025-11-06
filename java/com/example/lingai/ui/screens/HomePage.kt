@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.fragments.home.ButtonAllMyThemes
 import com.example.lingai.ui.fragments.home.CustomThemeGenerator
 import com.example.lingai.ui.fragments.home.DailyGoalProgress
@@ -18,14 +19,9 @@ import com.example.lingai.ui.theme.*
 
 @Composable
 fun HomePage() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Background)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp)
+    ContentColumn(
+        modifier = Modifier.verticalScroll(rememberScrollState())
     ) {
-        Spacer(modifier = Modifier.height(24.dp))
         CustomThemeGenerator()
         Spacer(modifier = Modifier.height(24.dp))
         DailyGoalProgress()

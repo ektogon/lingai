@@ -1,0 +1,30 @@
+package com.example.lingai.ui.components
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.theme.GreenLight
+import com.example.lingai.ui.theme.TextPrimary
+
+@Composable
+fun AdviceCard( text: String) {
+    Card(
+        Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = GreenLight)
+    ) {
+        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.Top) {
+            Text("\uD83D\uDCA1", fontSize = 24.sp, modifier = Modifier.padding(end = 10.dp))
+            Text(text, fontSize = 14.sp, color = TextPrimary, lineHeight = 20.sp)
+        }
+    }
+}

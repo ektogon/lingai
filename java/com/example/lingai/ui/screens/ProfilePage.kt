@@ -17,177 +17,116 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.components.ContentColumn
+import com.example.lingai.ui.theme.*
 
-data class Stat(
-    val emoji: String,
-    val label: String,
-    val value: String,
-    val color: Color
-)
+// 🎨 Цвета
 
+// 📊 Модели
+data class Stat(val emoji: String, val label: String, val value: String, val color: Color)
 data class Achievement(
     val emoji: String,
     val title: String,
     val description: String,
-    val backgroundColor: Brush,
+    val background: Brush,
     val iconBackground: Brush
 )
 
-object DuolingoProfileColors {
-    val GreenPrimary = Color(0xFF6B9E78)
-    val GreenDark = Color(0xFF588B5E)
-    val GreenLight = Color(0xFFE5F4EA)
-    val OrangePrimary = Color(0xFFFF9500)
-    val OrangeLight = Color(0xFFFFE5B4)
-    val BluePrimary = Color(0xFF4A9EED)
-    val BlueDark = Color(0xFF3B7EC9)
-    val Gold = Color(0xFFFFD700)
-    val GoldDark = Color(0xFFFFB700)
-    val Background = Color(0xFFF7FDF9)
-    val TextPrimary = Color(0xFF3C3C3C)
-    val TextSecondary = Color(0xFF666666)
-    val White = Color.White
-}
-
+// 🌿 Главный экран профиля
 @Composable
 fun ProfilePage() {
     val stats = listOf(
-        Stat("🏆", "Дней подряд", "15", DuolingoProfileColors.Gold),
-        Stat("🏆", "Очков", "2,845", DuolingoProfileColors.GreenPrimary),
-        Stat("🎯", "Слов изучено", "342", DuolingoProfileColors.BluePrimary),
-        Stat("⏱️", "Минут сегодня", "45", DuolingoProfileColors.OrangePrimary)
+        Stat("🔥", "Дней подряд", "15", Gold),
+        Stat("💎", "Очков", "2,845", GreenPrimary),
+        Stat("🎯", "Слов изучено", "342", BluePrimary),
+        Stat("⏱️", "Минут сегодня", "45", OrangePrimary)
     )
 
     val achievements = listOf(
         Achievement(
-            "🏆",
-            "Первая неделя",
-            "7 дней подряд",
-            Brush.horizontalGradient(listOf(DuolingoProfileColors.OrangeLight, Color(0xFFFFD89B))),
-            Brush.horizontalGradient(listOf(DuolingoProfileColors.Gold, DuolingoProfileColors.GoldDark))
+            "🏆", "Первая неделя", "7 дней подряд",
+            Brush.horizontalGradient(listOf(OrangeLight, Color(0xFFFFD89B))),
+            Brush.horizontalGradient(listOf(Gold, GoldDark))
         ),
         Achievement(
-            "📚",
-            "Знаток слов",
-            "300 слов изучено",
-            Brush.horizontalGradient(listOf(DuolingoProfileColors.GreenLight, DuolingoProfileColors.GreenLight)),
-            Brush.horizontalGradient(listOf(DuolingoProfileColors.GreenPrimary, DuolingoProfileColors.GreenDark))
+            "📚", "Знаток слов", "300 слов изучено",
+            Brush.horizontalGradient(listOf(GreenLight, GreenLight)),
+            Brush.horizontalGradient(listOf(GreenPrimary, GreenDark))
         ),
         Achievement(
-            "⚡",
-            "Быстрый старт",
-            "Первая тема завершена",
-            Brush.horizontalGradient(listOf(DuolingoProfileColors.GreenLight, Color(0xFFD4EDE0))),
-            Brush.horizontalGradient(listOf(DuolingoProfileColors.BluePrimary, DuolingoProfileColors.BlueDark))
+            "⚡", "Быстрый старт", "Первая тема завершена",
+            Brush.horizontalGradient(listOf(GreenLight, Color(0xFFD4EDE0))),
+            Brush.horizontalGradient(listOf(BluePrimary, BlueDark))
         )
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(DuolingoProfileColors.Background)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 16.dp)
-            .padding(bottom = 64.dp)
-    ) {
+    ContentColumn{
         Text(
             text = "Профиль",
             style = MaterialTheme.typography.headlineLarge,
-            color = DuolingoProfileColors.TextPrimary,
+            color = TextPrimary,
             modifier = Modifier.padding(bottom = 20.dp)
         )
 
-        // User info card
-        Card(
+        // 👤 Карточка пользователя
+        ProfileCard(stats)
+
+        // 🏅 Достижения
+        InfoCard(title = "Недавние достижения") {
+            achievements.forEachIndexed { i, ach ->
+                AchievementCard(ach)
+                if (i != achievements.lastIndex) Spacer(Modifier.height(10.dp))
+            }
+        }
+    }
+}
+
+// =================== 🔽 Компоненты ===================
+
+@Composable
+fun ProfileCard(stats: List<Stat>) {
+    InfoCard {
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 20.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = DuolingoProfileColors.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Column(
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 20.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(64.dp)
-                            .clip(CircleShape)
-                            .background(
-                                Brush.horizontalGradient(
-                                    listOf(DuolingoProfileColors.GreenPrimary, DuolingoProfileColors.GreenDark)
-                                )
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "ИП",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Column {
-                        Text(
-                            text = "Иван Петров",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = DuolingoProfileColors.TextPrimary
-                        )
-                        Text(
-                            text = "Изучаю английский",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = DuolingoProfileColors.TextSecondary
-                        )
-                    }
-                }
-
-                // Stats grid
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    stats.chunked(2).forEach { row ->
-                        Column(
-                            modifier = Modifier.weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            row.forEach { stat ->
-                                StatCard(stat)
-                            }
-                        }
-                    }
-                }
+            Avatar("ИП")
+            Column {
+                Text("Иван Петров", style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+                Text("Изучаю английский", style = MaterialTheme.typography.bodyMedium, color = TextSecondary)
             }
         }
 
-        // Achievements
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = DuolingoProfileColors.White),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp)
-            ) {
-                Text(
-                    text = "Недавние достижения",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = DuolingoProfileColors.TextPrimary,
-                    modifier = Modifier.padding(bottom = 12.dp)
-                )
+        StatsGrid(stats)
+    }
+}
 
-                achievements.forEach { achievement ->
-                    AchievementCard(achievement)
-                    Spacer(modifier = Modifier.height(10.dp))
-                }
+@Composable
+fun Avatar(initials: String) {
+    Box(
+        modifier = Modifier
+            .size(64.dp)
+            .clip(CircleShape)
+            .background(
+                Brush.horizontalGradient(
+                    listOf(GreenPrimary, GreenDark)
+                )
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(initials, color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun StatsGrid(stats: List<Stat>) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        stats.chunked(2).forEach { columnStats ->
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                columnStats.forEach { StatCard(it) }
             }
         }
     }
@@ -196,11 +135,9 @@ fun ProfilePage() {
 @Composable
 fun StatCard(stat: Stat) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = DuolingoProfileColors.Background
-        )
+        colors = CardDefaults.cardColors(containerColor = Background),
+        modifier = Modifier.fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
@@ -208,24 +145,9 @@ fun StatCard(stat: Stat) {
                 .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stat.emoji,
-                fontSize = 22.sp,
-                modifier = Modifier.padding(bottom = 6.dp)
-            )
-            Text(
-                text = stat.value,
-                style = MaterialTheme.typography.titleMedium,
-                color = stat.color,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = stat.label,
-                style = MaterialTheme.typography.bodySmall,
-                color = DuolingoProfileColors.TextSecondary,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 4.dp)
-            )
+            Text(stat.emoji, fontSize = 22.sp, modifier = Modifier.padding(bottom = 6.dp))
+            Text(stat.value, fontSize = 18.sp, color = stat.color, fontWeight = FontWeight.Bold)
+            Text(stat.label, fontSize = 12.sp, color = TextSecondary, textAlign = TextAlign.Center)
         }
     }
 }
@@ -233,21 +155,13 @@ fun StatCard(stat: Stat) {
 @Composable
 fun AchievementCard(achievement: Achievement) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        )
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(achievement.backgroundColor)
-        ) {
+        Box(modifier = Modifier.background(achievement.background)) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
+                modifier = Modifier.padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -258,26 +172,49 @@ fun AchievementCard(achievement: Achievement) {
                         .background(achievement.iconBackground),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = achievement.emoji,
-                        fontSize = 16.sp,
-                        color = Color.White
-                    )
+                    Text(achievement.emoji, fontSize = 16.sp, color = Color.White)
                 }
-                Column(modifier = Modifier.weight(1f)) {
+                Column(Modifier.weight(1f)) {
                     Text(
-                        text = achievement.title,
+                        achievement.title,
                         style = MaterialTheme.typography.titleSmall,
-                        color = DuolingoProfileColors.TextPrimary,
+                        color = TextPrimary,
                         fontWeight = FontWeight.SemiBold
                     )
                     Text(
-                        text = achievement.description,
+                        achievement.description,
                         style = MaterialTheme.typography.bodySmall,
-                        color = DuolingoProfileColors.TextSecondary
+                        color = TextSecondary
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun InfoCard(
+    title: String? = null,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(Modifier.padding(20.dp)) {
+            if (title != null) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = TextPrimary,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+            }
+            content()
         }
     }
 }
