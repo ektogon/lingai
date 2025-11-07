@@ -45,7 +45,6 @@ data class DifficultyOption(
 @Composable
 fun GeneratedTopicsPage() {
     var wordCount by remember { mutableStateOf(50f) }
-    var topicName by remember { mutableStateOf("") }
     val selectedDifficulties = remember { mutableStateListOf("medium") }
 
     val difficultyOptions = listOf(
@@ -120,8 +119,8 @@ fun GeneratedTopicsPage() {
                 }
 
                 TopicTextField(
-                    value = topicName,
-                    onValueChange = { topicName = it },
+                    value = "",
+                    onValueChange = {},
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))

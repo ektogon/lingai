@@ -1,5 +1,6 @@
 package com.example.lingai.ui.fragments.home
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -77,7 +82,7 @@ fun CustomThemeGenerator() {
                 ) {
                     TopicTextField(
                         value = "",
-                        onValueChange = {}, 
+                        onValueChange = {},
                         placeholder = "Название темы",
                         modifier = Modifier.weight(5f)
                     )
