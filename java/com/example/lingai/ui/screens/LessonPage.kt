@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.components.CardBlock
+import com.example.lingai.ui.components.CategoryCard
 import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.theme.*

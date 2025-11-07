@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.components.CardBlock
+import com.example.lingai.ui.components.CategoryCard
 import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.theme.*
 
@@ -83,47 +84,6 @@ fun PopularCategories() {
             backgroundColor = BluePrimary,
             rotation = -3f
         )
-    }
-}
-
-@Composable
-fun CategoryCard(
-    modifier: Modifier = Modifier,
-    emoji: String,
-    title: String,
-    wordsCount: Int,
-    progress: Int,
-    backgroundColor: Color,
-    rotation: Float
-) {
-    CardBlock(
-        modifier = modifier
-            .clickable { },
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .rotate(rotation)
-                    .background(
-                        Brush.horizontalGradient(
-                            listOf(backgroundColor, backgroundColor.copy(alpha = 0.8f))
-                        )
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = emoji, fontSize = 32.sp)
-            }
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(text = title, style = MaterialTheme.typography.titleSmall, color = TextPrimary)
-            Text(text = "$wordsCount слов", fontSize = 12.sp, color = TextSecondary)
-            Spacer(modifier = Modifier.height(8.dp))
-            ProgressBar(progress.toFloat())
-        }
     }
 }
 @Preview
