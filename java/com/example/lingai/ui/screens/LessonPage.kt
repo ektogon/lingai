@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.components.CardBlock
@@ -152,4 +153,10 @@ fun LessonCategoryCard(topic: LessonTopic) {
             ProgressBar(progress)
         }
     }
+}
+
+@Preview
+@Composable
+fun LessonsPagePrew(){
+    LessonsPage()
 }

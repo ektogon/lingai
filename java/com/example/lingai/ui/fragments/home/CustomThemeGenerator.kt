@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.components.TopicTextField
 import com.example.lingai.ui.theme.*
 
 @Composable
@@ -74,21 +75,13 @@ fun CustomThemeGenerator() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    OutlinedTextField(
+                    TopicTextField(
                         value = "",
-                        onValueChange = {},
-                        placeholder = { Text("Космос, Еда, Спорт...") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(56.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedContainerColor = White,
-                            unfocusedContainerColor = White,
-                            focusedBorderColor = Color.Transparent,
-                            unfocusedBorderColor = Color.Transparent
-                        )
+                        onValueChange = {}, 
+                        placeholder = "Название темы",
+                        modifier = Modifier.weight(5f)
                     )
+
                     Button(
                         onClick = { },
                         colors = ButtonDefaults.buttonColors(
@@ -96,8 +89,8 @@ fun CustomThemeGenerator() {
                             contentColor = GreenPrimary
                         ),
                         shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.height(56.dp),
-                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
+                        modifier = Modifier.height(52.dp).weight(3f),
+                        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
                     ) {
                         Text("Создать", fontWeight = FontWeight.Bold)
                     }

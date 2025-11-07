@@ -17,7 +17,6 @@ fun LinguaSlider(
     valueRange: ClosedFloatingPointRange<Float>,
     onValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
-    steps: Int = 0,
     valueSuffix: String = "",
     showRangeLabels: Boolean = true,
     accentColor: Color = Color.White, // 🎨 новый параметр цвета
@@ -47,7 +46,6 @@ fun LinguaSlider(
             value = value,
             onValueChange = onValueChange,
             valueRange = valueRange,
-            steps = steps,
             colors = SliderDefaults.colors(
                 thumbColor = accentColor,
                 activeTrackColor = accentColor,

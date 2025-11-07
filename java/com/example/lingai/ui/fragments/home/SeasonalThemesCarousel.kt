@@ -49,14 +49,32 @@ fun SeasonalThemesCarousel() {
             24,
             65
         ),
-        SeasonalTheme(2, "Хэллоуин", "https://images.unsplash.com/photo-1667223687781-b6025c7cd48d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400", 18, 35),
-        SeasonalTheme(3, "Новый год", "https://images.unsplash.com/photo-1704399527621-82de0422490c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400", 32, 80),
-        SeasonalTheme(4, "Зима", "https://images.unsplash.com/photo-1542609715982-16f4e1e2cfc0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400", 28, 50)
+        SeasonalTheme(
+            2,
+            "Хэллоуин",
+            "https://images.unsplash.com/photo-1667223687781-b6025c7cd48d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+            18,
+            35
+        ),
+        SeasonalTheme(
+            3,
+            "Новый год",
+            "https://images.unsplash.com/photo-1704399527621-82de0422490c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+            32,
+            80
+        ),
+        SeasonalTheme(
+            4,
+            "Зима",
+            "https://images.unsplash.com/photo-1542609715982-16f4e1e2cfc0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+            28,
+            50
+        )
     )
     Text(
         text = "Сезонные темы",
         style = MaterialTheme.typography.titleLarge,
-        color = TextSecondary,
+        color = TextPrimary,
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 12.dp)
@@ -73,6 +91,7 @@ fun SeasonalThemesCarousel() {
         }
     }
 }
+
 @Composable
 fun SeasonalThemeCard(theme: SeasonalTheme) {
     Card(

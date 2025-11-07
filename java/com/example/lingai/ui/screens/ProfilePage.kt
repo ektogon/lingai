@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.components.ContentColumn
@@ -60,14 +61,7 @@ fun ProfilePage() {
         )
     )
 
-    ContentColumn{
-        Text(
-            text = "Профиль",
-            style = MaterialTheme.typography.headlineLarge,
-            color = TextPrimary,
-            modifier = Modifier.padding(bottom = 20.dp)
-        )
-
+    ContentColumn(modifier = Modifier.verticalScroll(rememberScrollState())){
         // 👤 Карточка пользователя
         ProfileCard(stats)
 
@@ -217,4 +211,10 @@ fun InfoCard(
             content()
         }
     }
+}
+
+@Preview
+@Composable
+fun ProfilePagePrew(){
+    ProfilePage()
 }

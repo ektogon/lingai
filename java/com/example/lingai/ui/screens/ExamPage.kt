@@ -58,7 +58,7 @@ fun ExamPage() {
 
         // 🎯 Режим выбора
         CardBlock {
-            Column(Modifier.padding(20.dp)) {
+            Column() {
                 SectionTitle("🎯", "Выбор режима")
 
                 listOf(
@@ -67,7 +67,7 @@ fun ExamPage() {
                     Triple(
                         "level",
                         "📊",
-                        "По уровню сложности" to "Легкий, Средний, Сложный, Очень сложный"
+                        "По уровню сложности" to "Легкий, cредний, cложный, очень сложный"
                     )
                 ).forEach { (key, emoji, titles) ->
                     ExamModeOption(
@@ -94,7 +94,7 @@ fun ExamPage() {
                 }
             }
         }
-
+        Spacer(Modifier.padding(vertical = 10.dp))
         // 🎚 Количество вопросов
         CardBlock {
             LinguaSlider(
@@ -102,39 +102,23 @@ fun ExamPage() {
                 value = questionCount,
                 onValueChange = { questionCount = it },
                 valueRange = 25f..150f,
-                steps = 24,
                 accentColor = GreenPrimary,
                 textColor = TextPrimary
             )
         }
-
+        Spacer(Modifier.padding(vertical = 10.dp))
         // 🚀 Кнопка старта
         GradientButton(
             text = "Начать экзамен 🚀",
             colors = listOf(GreenPrimary, GreenDark)
         )
 
-        Spacer(Modifier.padding(top = 20.dp))
+        Spacer(Modifier.padding(vertical = 10.dp))
         //Совет
         AdviceCard(
             text = "Совет: Начните с малого количества вопросов, чтобы проверить свои знания!"
         )
-    }
-}
-
-// ==================== 🔽 Переиспользуемые компоненты ====================
-
-@Composable
-fun ExamCard(content: @Composable ColumnScope.() -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 20.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Column(Modifier.padding(20.dp), content = content)
+        Spacer(Modifier.padding(vertical = 10.dp))
     }
 }
 
@@ -175,7 +159,6 @@ fun ExamModeOption(
             onClick = onClick,
             colors = RadioButtonDefaults.colors(selectedColor = GreenPrimary)
         )
-        Spacer(Modifier.width(12.dp))
         Text(emoji, fontSize = 20.sp, modifier = Modifier.padding(end = 8.dp))
         Column(Modifier.weight(1f)) {
             Text(title, fontWeight = FontWeight.SemiBold, color = TextPrimary)

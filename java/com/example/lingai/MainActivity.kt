@@ -29,16 +29,15 @@ class MainActivity : ComponentActivity() {
                 )
                 systemUiController.setNavigationBarColor(color = White)
             }
-            LingaiTheme {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .systemBarsPadding(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainNavigation()
-                }
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                MainNavigation()
             }
+
         }
     }
 }

@@ -10,6 +10,11 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
+val Background = Color(0xFFF7FDF9)
+val TextPrimary = Color(0xFF3C3C3C)
+val TextSecondary = Color(0xFF1e1e1e)
+
+
 val GreenPrimary = Color(0xFF6B9E78)
 val Gray = Color(0xFF9E9E9E)
 val Border = Color(0xFFE0E0E0)
@@ -24,7 +29,6 @@ val BlueDark = Color(0xFF3B7EC9)
 val RedPrimary = Color(0xFFEF4444)
 val Gold = Color(0xFFFFD700)
 val GoldDark = Color(0xFFFFB700)
-val Background = Color(0xFFF7FDF9)
-val TextPrimary = Color(0xFF3C3C3C)
-val TextSecondary = Color(0xFF666666)
+
+
 val White = Color.White
