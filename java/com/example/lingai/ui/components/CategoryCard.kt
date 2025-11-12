@@ -1,5 +1,6 @@
 package com.example.lingai.ui.components
 
+import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,13 +24,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.theme.TextPrimary
 import com.example.lingai.ui.theme.TextSecondary
-import com.example.lingai.ui.screens.LessonTopic
+import com.example.lingai.data.LessonTopic
 import com.example.lingai.ui.theme.*
 
 @Composable
-fun CategoryCard(modifier: Modifier = Modifier, topic: LessonTopic) {
+fun CategoryCard(
+    modifier: Modifier = Modifier,
+    topic: LessonTopic,
+    onClick: (LessonTopic) -> Unit,
+) {
     val progress = (topic.completedWords.toFloat() / topic.totalWords.toFloat()) * 100
-    val isCompleted = topic.completedWords == topic.totalWords
 
     val backgroundColor = when (topic.level) {
         "A0", "A1" -> GreenPrimary
@@ -41,7 +45,7 @@ fun CategoryCard(modifier: Modifier = Modifier, topic: LessonTopic) {
 
     CardBlock(
         modifier = modifier
-            .clickable { },
+            .clickable { onClick(topic)},
         backgroundColor = White
     ) {
         Column(

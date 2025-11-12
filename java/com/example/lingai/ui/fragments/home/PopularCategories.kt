@@ -18,14 +18,43 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lingai.ui.components.CategoryCard
-import com.example.lingai.ui.screens.LessonTopic
+import com.example.lingai.data.LessonTopic
+import com.example.lingai.data.WordItem
+import com.example.lingai.data.WordStatus
 import com.example.lingai.ui.theme.*
 
 @Composable
 fun PopularCategories() {
     val topics = listOf(
-        LessonTopic("family", "Семья и друзья", 50, 40, emoji = "👨‍👩‍👧"),
-        LessonTopic("hobbies", "Хобби и увлечения", 60, 15, emoji = "🎨")
+        LessonTopic(
+            id = "family",
+            title = "Семья и друзья",
+            totalWords = 50,
+            completedWords = 40,
+            emoji = "👨‍👩‍👧",
+            level = "B1",
+            learningWords = 5,
+            words = listOf(
+                WordItem("Mother", "Мать", WordStatus.LEARNED),
+                WordItem("Father", "Отец", WordStatus.LEARNED),
+                WordItem("Friend", "Друг", WordStatus.IN_PROGRESS),
+                WordItem("Child", "Ребёнок", WordStatus.NEW)
+            )
+        ),
+        LessonTopic(
+            id = "hobbies",
+            title = "Хобби и увлечения",
+            totalWords = 60,
+            completedWords = 15,
+            emoji = "🎨",
+            level = "B2",
+            learningWords = 10,
+            words = listOf(
+                WordItem("Music", "Музыка", WordStatus.IN_PROGRESS),
+                WordItem("Painting", "Живопись", WordStatus.NEW),
+                WordItem("Reading", "Чтение", WordStatus.LEARNED)
+            )
+        ),
     )
     Row(
         modifier = Modifier
@@ -55,7 +84,8 @@ fun PopularCategories() {
         topics.forEach { topic ->
             CategoryCard(
                 modifier = Modifier.weight(1f),
-                topic = topic
+                topic = topic,
+                onClick = {}
             )
             if (topic != topics.last()) {Spacer(modifier = Modifier.width(12.dp))}
         }
