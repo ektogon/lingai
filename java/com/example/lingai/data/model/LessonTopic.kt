@@ -1,7 +1,6 @@
-package com.example.lingai.model
+package com.example.lingai.data.model
 
 data class LessonTopic(
-    val id: String,
     val title: String,
     val emoji: String,
     val level: String,

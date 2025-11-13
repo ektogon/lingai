@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.theme.TextPrimary
 import com.example.lingai.ui.theme.TextSecondary
-import com.example.lingai.model.LessonTopic
+import com.example.lingai.data.model.LessonTopic
 import com.example.lingai.ui.theme.*
 
 @Composable
@@ -31,6 +32,7 @@ fun CategoryCard(
     modifier: Modifier = Modifier,
     topic: LessonTopic,
     onClick: (LessonTopic) -> Unit,
+    index: Int,
 ) {
     val progress = (topic.completedWords.toFloat() / topic.totalWords.toFloat()) * 100
 
@@ -57,7 +59,7 @@ fun CategoryCard(
                 modifier = Modifier
                     .size(64.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .rotate(if (topic.id.hashCode() % 2 == 0) 3f else -3f)
+                    .rotate(if (index.hashCode() % 2 == 0) 3f else -3f)
                     .background(
                         Brush.horizontalGradient(
                             listOf(backgroundColor, backgroundColor.copy(alpha = 0.85f))

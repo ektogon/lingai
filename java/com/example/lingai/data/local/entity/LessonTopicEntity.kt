@@ -1,0 +1,17 @@
+package com.example.lingai.data.local.entity
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.lingai.data.model.Word
+
+@Entity(tableName = "lesson_topic")
+data class LessonTopicEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val title: String,
+    val emoji: String,
+    val level: String,
+    val totalWords: Int,
+    val completedWords: Int,
+    val learningWords: Int
+)

@@ -18,16 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lingai.ui.components.CategoryCard
-import com.example.lingai.model.LessonTopic
-import com.example.lingai.model.Word
-import com.example.lingai.model.WordStatus
+import com.example.lingai.data.model.LessonTopic
+import com.example.lingai.data.model.Word
+import com.example.lingai.data.model.WordStatus
 import com.example.lingai.ui.theme.*
 
 @Composable
 fun PopularCategories() {
     val topics = listOf(
         LessonTopic(
-            id = "family",
             title = "Семья и друзья",
             totalWords = 50,
             completedWords = 40,
@@ -42,7 +41,6 @@ fun PopularCategories() {
             )
         ),
         LessonTopic(
-            id = "hobbies",
             title = "Хобби и увлечения",
             totalWords = 60,
             completedWords = 15,
@@ -81,11 +79,15 @@ fun PopularCategories() {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        var index: Int = 1
         topics.forEach { topic ->
+
+            index++
             CategoryCard(
                 modifier = Modifier.weight(1f),
                 topic = topic,
-                onClick = {}
+                onClick = {},
+                index = index
             )
             if (topic != topics.last()) {Spacer(modifier = Modifier.width(12.dp))}
         }

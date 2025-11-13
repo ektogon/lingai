@@ -5,13 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.lingai.model.LessonTopic
-import com.example.lingai.model.Question
-import com.example.lingai.ui.screens.ExamPage
-import com.example.lingai.ui.screens.GeneratedTopicsPage
+import com.example.lingai.data.model.LessonTopic
+import com.example.lingai.data.model.Question
+import com.example.lingai.ui.screens.exam.ExamPage
+import com.example.lingai.ui.screens.generate.GeneratedTopicsPage
 import com.example.lingai.ui.screens.home.HomePage
-import com.example.lingai.ui.screens.LessonsPage
-import com.example.lingai.ui.screens.ProfilePage
+import com.example.lingai.ui.screens.lesson.LessonsPage
+import com.example.lingai.ui.screens.profile.ProfilePage
 import com.example.lingai.ui.screens.learn.LearnWordScreen
 import com.google.gson.Gson
 

@@ -1,4 +1,4 @@
-package com.example.lingai.ui.screens
+package com.example.lingai.ui.screens.exam
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*

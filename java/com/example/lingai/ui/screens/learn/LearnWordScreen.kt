@@ -4,8 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.example.lingai.model.Question
-import com.example.lingai.model.WrongAnswer
+import com.example.lingai.data.model.Question
+import com.example.lingai.data.model.WrongAnswer
 import com.example.lingai.ui.theme.*
 
 @Composable

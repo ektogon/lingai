@@ -1,4 +1,4 @@
-package com.example.lingai.ui.screens
+package com.example.lingai.ui.screens.generate
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

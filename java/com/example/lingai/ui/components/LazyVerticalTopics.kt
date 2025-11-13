@@ -14,9 +14,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.lingai.model.LessonTopic
-import com.example.lingai.model.Word
-import com.example.lingai.model.WordStatus
+import com.example.lingai.data.model.LessonTopic
+import com.example.lingai.data.model.Word
+import com.example.lingai.data.model.WordStatus
 
 @Composable
 fun LazyVerticalTopics(topics: List<LessonTopic>,  onTopicSelected: (LessonTopic) -> Unit) {
@@ -28,8 +28,11 @@ fun LazyVerticalTopics(topics: List<LessonTopic>,  onTopicSelected: (LessonTopic
         contentPadding = PaddingValues(vertical = 15.dp)
 
     ) {
+        var index: Int = 1
         items(topics) { topic ->
-            CategoryCard(topic = topic, onClick = { onTopicSelected(topic)  })
+
+            index++
+            CategoryCard(topic = topic, onClick = { onTopicSelected(topic) },  index=index)
         }
     }
 }
@@ -39,7 +42,6 @@ fun LazyVerticalTopics(topics: List<LessonTopic>,  onTopicSelected: (LessonTopic
 fun LazyVerticalTopicsPrew() {
     val topics = listOf(
         LessonTopic(
-            id = "a0",
             title = "Все слова A0",
             totalWords = 100,
             completedWords = 85,
@@ -59,7 +61,6 @@ fun LazyVerticalTopicsPrew() {
             }
         ),
         LessonTopic(
-            id = "a1",
             title = "Все слова A1",
             totalWords = 150,
             completedWords = 120,
