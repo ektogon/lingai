@@ -18,17 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.lingai.data.LessonTopic
-import com.example.lingai.data.WordItem
-import com.example.lingai.data.WordStatus
+import androidx.navigation.NavController
+import com.example.lingai.model.LessonTopic
+import com.example.lingai.model.Word
+import com.example.lingai.model.WordStatus
 import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.LazyVerticalTopics
 import com.example.lingai.ui.dialogs.TopicDetailsDialog
 import com.example.lingai.ui.theme.*
+import com.google.gson.Gson
 
 
 @Composable
-fun LessonsPage() {
+fun LessonsPage(navController: NavController) {
     var selectedTopic by remember { mutableStateOf<LessonTopic?>(null) }
     val topics = listOf(
         LessonTopic(
@@ -40,8 +42,8 @@ fun LessonsPage() {
             emoji = "📗",
             learningWords = 10,
             words = List(10) {
-                WordItem(
-                    text = "word${it + 1}",
+                Word(
+                    original = "word${it + 1}",
                     translation = "слово${it + 1}",
                     status = when {
                         it < 7 -> WordStatus.LEARNED
@@ -60,8 +62,8 @@ fun LessonsPage() {
             emoji = "📘",
             learningWords = 20,
             words = List(15) {
-                WordItem(
-                    text = "word${it + 1}",
+                Word(
+                    original = "word${it + 1}",
                     translation = "слово${it + 1}",
                     status = if (it < 10) WordStatus.LEARNED else WordStatus.IN_PROGRESS
                 )
@@ -76,8 +78,8 @@ fun LessonsPage() {
             emoji = "📙",
             learningWords = 25,
             words = List(20) {
-                WordItem(
-                    text = "word${it + 1}",
+                Word(
+                    original = "word${it + 1}",
                     translation = "слово${it + 1}",
                     status = when {
                         it < 5 -> WordStatus.LEARNED
@@ -136,10 +138,10 @@ fun LessonsPage() {
             level = "A1",
             learningWords = 0,
             words = listOf(
-                WordItem("Hello", "Привет", WordStatus.LEARNED),
-                WordItem("Good morning", "Доброе утро", WordStatus.LEARNED),
-                WordItem("How are you?", "Как дела?", WordStatus.LEARNED),
-                WordItem("Nice to meet you", "Рад встрече", WordStatus.LEARNED)
+                Word("Hello", "Привет", WordStatus.LEARNED),
+                Word("Good morning", "Доброе утро", WordStatus.LEARNED),
+                Word("How are you?", "Как дела?", WordStatus.LEARNED),
+                Word("Nice to meet you", "Рад встрече", WordStatus.LEARNED)
             )
         ),
         LessonTopic(
@@ -151,10 +153,10 @@ fun LessonsPage() {
             level = "A1",
             learningWords = 10,
             words = listOf(
-                WordItem("Bread", "Хлеб", WordStatus.LEARNED),
-                WordItem("Water", "Вода", WordStatus.LEARNED),
-                WordItem("Coffee", "Кофе", WordStatus.IN_PROGRESS),
-                WordItem("Juice", "Сок", WordStatus.NEW)
+                Word("Bread", "Хлеб", WordStatus.LEARNED),
+                Word("Water", "Вода", WordStatus.LEARNED),
+                Word("Coffee", "Кофе", WordStatus.IN_PROGRESS),
+                Word("Juice", "Сок", WordStatus.NEW)
             )
         ),
         LessonTopic(
@@ -166,9 +168,9 @@ fun LessonsPage() {
             level = "A2",
             learningWords = 20,
             words = listOf(
-                WordItem("Ticket", "Билет", WordStatus.LEARNED),
-                WordItem("Airport", "Аэропорт", WordStatus.IN_PROGRESS),
-                WordItem("Luggage", "Багаж", WordStatus.NEW)
+                Word("Ticket", "Билет", WordStatus.LEARNED),
+                Word("Airport", "Аэропорт", WordStatus.IN_PROGRESS),
+                Word("Luggage", "Багаж", WordStatus.NEW)
             )
         ),
         LessonTopic(
@@ -190,10 +192,10 @@ fun LessonsPage() {
             level = "B1",
             learningWords = 5,
             words = listOf(
-                WordItem("Mother", "Мать", WordStatus.LEARNED),
-                WordItem("Father", "Отец", WordStatus.LEARNED),
-                WordItem("Friend", "Друг", WordStatus.IN_PROGRESS),
-                WordItem("Child", "Ребёнок", WordStatus.NEW)
+                Word("Mother", "Мать", WordStatus.LEARNED),
+                Word("Father", "Отец", WordStatus.LEARNED),
+                Word("Friend", "Друг", WordStatus.IN_PROGRESS),
+                Word("Child", "Ребёнок", WordStatus.NEW)
             )
         ),
         LessonTopic(
@@ -205,9 +207,9 @@ fun LessonsPage() {
             level = "B2",
             learningWords = 10,
             words = listOf(
-                WordItem("Music", "Музыка", WordStatus.IN_PROGRESS),
-                WordItem("Painting", "Живопись", WordStatus.NEW),
-                WordItem("Reading", "Чтение", WordStatus.LEARNED)
+                Word("Music", "Музыка", WordStatus.IN_PROGRESS),
+                Word("Painting", "Живопись", WordStatus.NEW),
+                Word("Reading", "Чтение", WordStatus.LEARNED)
             )
         ),
         LessonTopic(
@@ -219,9 +221,9 @@ fun LessonsPage() {
             level = "C1",
             learningWords = 15,
             words = listOf(
-                WordItem("Rain", "Дождь", WordStatus.LEARNED),
-                WordItem("Cloud", "Облако", WordStatus.IN_PROGRESS),
-                WordItem("Wind", "Ветер", WordStatus.NEW)
+                Word("Rain", "Дождь", WordStatus.LEARNED),
+                Word("Cloud", "Облако", WordStatus.IN_PROGRESS),
+                Word("Wind", "Ветер", WordStatus.NEW)
             )
         ),
         LessonTopic(
@@ -243,9 +245,9 @@ fun LessonsPage() {
             level = "C1",
             learningWords = 10,
             words = listOf(
-                WordItem("Doctor", "Доктор", WordStatus.IN_PROGRESS),
-                WordItem("Hospital", "Больница", WordStatus.NEW),
-                WordItem("Medicine", "Лекарство", WordStatus.NEW)
+                Word("Doctor", "Доктор", WordStatus.IN_PROGRESS),
+                Word("Hospital", "Больница", WordStatus.NEW),
+                Word("Medicine", "Лекарство", WordStatus.NEW)
             )
         )
     )
@@ -275,13 +277,18 @@ fun LessonsPage() {
     // 👇 В этом блоке открывается всплывающее окно
     AnimatedVisibility(
         visible = selectedTopic != null,
-        enter = slideInVertically(initialOffsetY = { it / 2 }) + fadeIn(),
-        exit = slideOutVertically(targetOffsetY = { it / 2 }) + fadeOut()
+        enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
+        exit = slideOutVertically(targetOffsetY = { it}) + fadeOut()
     ) {
-        selectedTopic?.let {
+        selectedTopic?.let {topic ->
             TopicDetailsDialog(
-                topic = it,
-                onDismiss = { selectedTopic = null } // ← закрытие
+                topic = topic,
+                onDismiss = { selectedTopic = null },
+                onStartLearning = {
+                    val topicJson = Gson().toJson(selectedTopic)
+                    selectedTopic = null
+                    navController.navigate("learn/$topicJson")
+                }
             )
         }
     }
@@ -290,5 +297,5 @@ fun LessonsPage() {
 @Preview
 @Composable
 fun LessonsPagePrew(){
-    LessonsPage()
+//    LessonsPage()
 }

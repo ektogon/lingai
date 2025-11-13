@@ -1,4 +1,4 @@
-package com.example.lingai.ui.fragments.home
+package com.example.lingai.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lingai.ui.components.CategoryCard
-import com.example.lingai.data.LessonTopic
-import com.example.lingai.data.WordItem
-import com.example.lingai.data.WordStatus
+import com.example.lingai.model.LessonTopic
+import com.example.lingai.model.Word
+import com.example.lingai.model.WordStatus
 import com.example.lingai.ui.theme.*
 
 @Composable
@@ -35,10 +35,10 @@ fun PopularCategories() {
             level = "B1",
             learningWords = 5,
             words = listOf(
-                WordItem("Mother", "Мать", WordStatus.LEARNED),
-                WordItem("Father", "Отец", WordStatus.LEARNED),
-                WordItem("Friend", "Друг", WordStatus.IN_PROGRESS),
-                WordItem("Child", "Ребёнок", WordStatus.NEW)
+                Word("Mother", "Мать", WordStatus.LEARNED),
+                Word("Father", "Отец", WordStatus.LEARNED),
+                Word("Friend", "Друг", WordStatus.IN_PROGRESS),
+                Word("Child", "Ребёнок", WordStatus.NEW)
             )
         ),
         LessonTopic(
@@ -50,9 +50,9 @@ fun PopularCategories() {
             level = "B2",
             learningWords = 10,
             words = listOf(
-                WordItem("Music", "Музыка", WordStatus.IN_PROGRESS),
-                WordItem("Painting", "Живопись", WordStatus.NEW),
-                WordItem("Reading", "Чтение", WordStatus.LEARNED)
+                Word("Music", "Музыка", WordStatus.IN_PROGRESS),
+                Word("Painting", "Живопись", WordStatus.NEW),
+                Word("Reading", "Чтение", WordStatus.LEARNED)
             )
         ),
     )

@@ -1,4 +1,4 @@
-package com.example.lingai.ui.screens
+package com.example.lingai.ui.screens.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -9,11 +9,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.GradientButton
-import com.example.lingai.ui.fragments.home.CustomThemeGenerator
-import com.example.lingai.ui.fragments.home.DailyGoalProgress
-import com.example.lingai.ui.fragments.home.PopularCategories
-import com.example.lingai.ui.fragments.home.QuickStartCard
-import com.example.lingai.ui.fragments.home.SeasonalThemesCarousel
 import com.example.lingai.ui.theme.*
 
 @Composable

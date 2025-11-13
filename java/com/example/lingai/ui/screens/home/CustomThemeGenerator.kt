@@ -1,4 +1,4 @@
-package com.example.lingai.ui.fragments.home
+package com.example.lingai.ui.screens.home
 
 import android.util.Log
 import androidx.compose.foundation.background

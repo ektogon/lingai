@@ -1,6 +1,5 @@
 package com.example.lingai.ui.components
 
-import android.R.attr.onClick
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.theme.TextPrimary
 import com.example.lingai.ui.theme.TextSecondary
-import com.example.lingai.data.LessonTopic
+import com.example.lingai.model.LessonTopic
 import com.example.lingai.ui.theme.*
 
 @Composable

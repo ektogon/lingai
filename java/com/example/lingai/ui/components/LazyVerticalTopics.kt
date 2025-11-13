@@ -14,10 +14,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.lingai.data.LessonTopic
-import com.example.lingai.data.WordItem
-import com.example.lingai.data.WordStatus
-import com.example.lingai.ui.screens.LessonsPage
+import com.example.lingai.model.LessonTopic
+import com.example.lingai.model.Word
+import com.example.lingai.model.WordStatus
 
 @Composable
 fun LazyVerticalTopics(topics: List<LessonTopic>,  onTopicSelected: (LessonTopic) -> Unit) {
@@ -48,8 +47,8 @@ fun LazyVerticalTopicsPrew() {
             emoji = "📗",
             learningWords = 10,
             words = List(10) {
-                    WordItem(
-                    text = "word${it + 1}",
+                    Word(
+                    original = "word${it + 1}",
                     translation = "слово${it + 1}",
                     status = when {
                         it < 7 -> WordStatus.LEARNED
@@ -68,8 +67,8 @@ fun LazyVerticalTopicsPrew() {
             emoji = "📘",
             learningWords = 20,
             words = List(15) {
-                WordItem(
-                    text = "word${it + 1}",
+                Word(
+                    original = "word${it + 1}",
                     translation = "слово${it + 1}",
                     status = if (it < 10) WordStatus.LEARNED else WordStatus.IN_PROGRESS
                 )

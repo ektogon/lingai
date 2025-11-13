@@ -1,7 +1,7 @@
-package com.example.lingai.data
+package com.example.lingai.model
 
-data class WordItem(
-    val text: String,
+data class Word(
+    val original: String,
     val translation: String,
     val status: WordStatus
 )

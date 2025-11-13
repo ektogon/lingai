@@ -1,6 +1,4 @@
-package com.example.lingai.data
-
-import com.example.lingai.data.WordItem
+package com.example.lingai.model
 
 data class LessonTopic(
     val id: String,
@@ -10,5 +8,5 @@ data class LessonTopic(
     val totalWords: Int,
     val completedWords: Int,
     val learningWords: Int,
-    val words: List<WordItem>
+    val words: List<Word>
 )

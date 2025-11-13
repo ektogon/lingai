@@ -1,4 +1,4 @@
-package com.example.lingai.ui.fragments.home
+package com.example.lingai.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
