@@ -1,4 +1,4 @@
-package com.example.lingai.data.model
+package com.example.lingai.domain.model
 
 data class Question(
     val correctAnswer: Word,

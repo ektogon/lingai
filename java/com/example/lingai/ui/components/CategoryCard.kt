@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,29 +23,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.theme.TextPrimary
 import com.example.lingai.ui.theme.TextSecondary
-import com.example.lingai.data.model.LessonTopic
+import com.example.lingai.ui.model.LessonTopicUi
 import com.example.lingai.ui.theme.*
 
 @Composable
 fun CategoryCard(
     modifier: Modifier = Modifier,
-    topic: LessonTopic,
-    onClick: (LessonTopic) -> Unit,
-    index: Int,
+    data: LessonTopicUi,
+    onClick: () -> Unit,
 ) {
-    val progress = (topic.completedWords.toFloat() / topic.totalWords.toFloat()) * 100
-
-    val backgroundColor = when (topic.level) {
-        "A0", "A1" -> GreenPrimary
-        "A2" -> BluePrimary
-        "B1", "B2" -> OrangePrimary
-        "C1", "C2" -> RedPrimary
-        else -> GreenPrimary
-    }
+    val topic = data.topic
 
     CardBlock(
         modifier = modifier
-            .clickable { onClick(topic)},
+            .clickable { onClick() },
         backgroundColor = White
     ) {
         Column(
@@ -54,15 +44,18 @@ fun CategoryCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Цветной квадрат с эмоджи
+
             Box(
                 modifier = Modifier
                     .size(64.dp)
                     .clip(RoundedCornerShape(16.dp))
-                    .rotate(if (index.hashCode() % 2 == 0) 3f else -3f)
+                    .rotate(data.rotation)
                     .background(
                         Brush.horizontalGradient(
-                            listOf(backgroundColor, backgroundColor.copy(alpha = 0.85f))
+                            listOf(
+                                data.backgroundColor,
+                                data.backgroundColor.copy(alpha = 0.85f)
+                            )
                         )
                     ),
                 contentAlignment = Alignment.Center
@@ -72,7 +65,6 @@ fun CategoryCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Заголовок
             Text(
                 text = topic.title,
                 style = MaterialTheme.typography.titleSmall,
@@ -83,7 +75,6 @@ fun CategoryCard(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Количество слов
             Text(
                 text = "${topic.totalWords} слов",
                 fontSize = 12.sp,
@@ -92,8 +83,8 @@ fun CategoryCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Прогресс-бар
-            ProgressBar(progress)
+            ProgressBar(data.progress)
         }
     }
 }
+

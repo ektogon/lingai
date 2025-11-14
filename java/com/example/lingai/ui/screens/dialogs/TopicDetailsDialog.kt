@@ -43,10 +43,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.data.model.Word
-import com.example.lingai.data.model.WordStatus
+import com.example.lingai.domain.model.Word
+import com.example.lingai.domain.model.WordStatus
 import com.example.lingai.ui.components.ProgressBar
-import com.example.lingai.data.model.LessonTopic
+import com.example.lingai.domain.model.LessonTopic
 import com.example.lingai.ui.theme.*
 import kotlinx.coroutines.launch
 

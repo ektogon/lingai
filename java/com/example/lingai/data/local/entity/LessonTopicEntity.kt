@@ -3,7 +3,6 @@ package com.example.lingai.data.local.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.lingai.data.model.Word
 
 @Entity(
     tableName = "lesson_topic",

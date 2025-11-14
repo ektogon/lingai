@@ -1,19 +1,23 @@
 package com.example.lingai.ui.navigation
 
-import androidx.compose.material3.Text
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.lingai.data.model.LessonTopic
-import com.example.lingai.data.model.Question
+import androidx.navigation.navArgument
 import com.example.lingai.ui.screens.exam.ExamPage
 import com.example.lingai.ui.screens.generate.GeneratedTopicsPage
 import com.example.lingai.ui.screens.home.HomePage
+import com.example.lingai.ui.screens.learn.LearnWordScreen
+import com.example.lingai.ui.screens.learn.LearnWordViewModel
 import com.example.lingai.ui.screens.lesson.LessonsPage
 import com.example.lingai.ui.screens.profile.ProfilePage
-import com.example.lingai.ui.screens.learn.LearnWordScreen
-import com.google.gson.Gson
 
 @Composable
 fun NavGraph(
@@ -38,32 +42,27 @@ fun NavGraph(
         composable(NavigationItem.Profile.route) {
             ProfilePage()
         }
-        composable("learn/{topicJson}") { backStackEntry ->
-            val topicJson = backStackEntry.arguments?.getString("topicJson")
-            if (topicJson != null) {
-                val topic = Gson().fromJson(topicJson, LessonTopic::class.java)
+        composable(
+            route = "learn/{topicId}",
+            arguments = listOf(navArgument("topicId") { type = NavType.IntType }
+            )) { backStack ->
+            val topicId = backStack.arguments?.getInt("topicId")!!
+            Log.d("Lesson", "NavGraph: $topicId")
+            val viewModel: LearnWordViewModel = hiltViewModel()
 
-                val questions = topic.words.map { word ->
-                    Question(
-                        correctAnswer = word,
-                        variants = listOf(
-                            word,
-                            word.copy(translation = "Ошибка 1"),
-                            word.copy(translation = "Ошибка 2"),
-                            word.copy(translation = "Ошибка 3")
-                        ).shuffled(),
-                        correctIndex = 0
-                    )
-                }
-
-                LearnWordScreen(
-                    questions = questions,
-                    onClose = { navHostController.popBackStack() }
-                )
-            } else {
-                Text("Ошибка: не удалось загрузить тему.")
+            LaunchedEffect(topicId) {
+                viewModel.loadTopic(topicId)
             }
+
+            val state by viewModel.state.collectAsState()
+
+            LearnWordScreen(
+                state = state,
+                onEvent = viewModel::onEvent,
+                onClose = { navHostController.popBackStack() }
+            )
         }
+
 
     }
 }

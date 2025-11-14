@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.data.model.Question
+import com.example.lingai.domain.model.Question
 import com.example.lingai.ui.theme.Blue
 import com.example.lingai.ui.theme.TextPrimary
 
