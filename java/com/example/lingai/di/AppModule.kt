@@ -2,6 +2,8 @@ package com.example.lingai.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.lingai.data.local.AppDatabase
 import com.example.lingai.data.local.dao.LessonTopicDao
 import com.example.lingai.data.local.dao.WordDao
@@ -15,6 +17,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+//    val MIGRATION_3_4 = object : Migration(3, 4) {
+//        override fun migrate(db: SupportSQLiteDatabase) {
+//            db.execSQL("ALTER TABLE lesson_topic ADD COLUMN ______ TEXT NOT NULL DEFAULT ''")
+//        }
+//    }
 
     // Предоставляем базу данных
     @Provides
@@ -26,7 +33,10 @@ object AppModule {
             "lingai_db"
         )
             .fallbackToDestructiveMigration()
+            .createFromAsset("lingai.db")
+//            .addMigrations(MIGRATION_3_4)
             .build()
+
     }
 
     // Предоставляем LessonTopicDao

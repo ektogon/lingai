@@ -37,10 +37,6 @@ fun LessonsPage(navController: NavController, viewModel: LessonsViewModel = hilt
     var selectedTopic by remember { mutableStateOf<LessonTopic?>(null) }
     val topics by viewModel.topics.collectAsState()
 
-//    LaunchedEffect(Unit) {
-//        viewModel.preloadTopics() // добавляем стартовые данные при первом запуске
-//    }
-
     ContentColumn {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -91,8 +87,8 @@ fun LessonsPage(navController: NavController, viewModel: LessonsViewModel = hilt
     }
 }
 
-@Preview
-@Composable
-fun LessonsPagePrew() {
-//    LessonsPage()
-}
+//@Preview
+//@Composable
+//fun LessonsPagePrew() {
+//   LessonsPage()
+//}

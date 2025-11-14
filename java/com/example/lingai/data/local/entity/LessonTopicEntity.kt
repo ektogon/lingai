@@ -1,14 +1,22 @@
 package com.example.lingai.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.lingai.data.model.Word
 
-@Entity(tableName = "lesson_topic")
+@Entity(
+    tableName = "lesson_topic",
+    indices = [
+        Index("level"),
+        Index("title")
+    ]
+)
 data class LessonTopicEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
+    val translation: String,
     val emoji: String,
     val level: String,
     val totalWords: Int,
