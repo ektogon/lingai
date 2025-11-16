@@ -1,6 +1,8 @@
 package com.example.lingai.ui.navigation
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +14,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import kotlin.collections.listOf
+import com.example.lingai.ui.theme.Background
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -20,6 +22,9 @@ fun MainNavigation() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val hideBottomBarRoutes = listOf(
+        "learn"
+    )
     val navItems = listOf(
         NavigationItem.Home,
         NavigationItem.Lessons,
@@ -28,32 +33,40 @@ fun MainNavigation() {
         NavigationItem.Profile
     )
     Scaffold(
+        modifier = Modifier.background(Background),
         bottomBar = {
-            BottomNavigationBar(
-                modifier = Modifier.shadow(
-                    elevation = 12.dp,
-                    shape = RoundedCornerShape(
-                        bottomStart = 16.dp,
-                        bottomEnd = 16.dp
+            val shouldShowBottomBar = hideBottomBarRoutes.none { prefix ->
+                currentRoute?.startsWith(prefix) == true
+            }
+            AnimatedVisibility(
+                visible = shouldShowBottomBar,
+            ) {
+                BottomNavigationBar(
+                    modifier = Modifier.shadow(
+                        elevation = 12.dp,
+                        shape = RoundedCornerShape(
+                            bottomStart = 16.dp,
+                            bottomEnd = 16.dp
+                        ),
+                        clip = false
                     ),
-                    clip = false
-                ),
-                tabs = navItems,
-                currentRoute = currentRoute ?: NavigationItem.Home.route,
-                onNavigate = { route ->
-                    navController.navigate(route) {
-                        popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
+                    tabs = navItems,
+                    currentRoute = currentRoute ?: NavigationItem.Home.route,
+                    onNavigate = { route ->
+                        navController.navigate(route) {
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
                         }
-                        launchSingleTop = true
-                        restoreState = true
                     }
-                }
-            )
+                )
+            }
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            NavGraph(navHostController = navController)
+            NavGraph(navController = navController)
         }
     }
 }

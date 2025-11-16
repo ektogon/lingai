@@ -43,11 +43,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.domain.model.LessonTopic
 import com.example.lingai.domain.model.Word
 import com.example.lingai.domain.model.WordStatus
 import com.example.lingai.ui.components.ProgressBar
-import com.example.lingai.domain.model.LessonTopic
-import com.example.lingai.ui.theme.*
+import com.example.lingai.ui.theme.GreenPrimary
+import com.example.lingai.ui.theme.TextPrimary
+import com.example.lingai.ui.theme.TextSecondary
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
@@ -55,7 +57,7 @@ import kotlinx.coroutines.launch
 fun TopicDetailsDialog(
     topic: LessonTopic,
     onDismiss: () -> Unit,
-    onStartLearning: (LessonTopic) -> Unit
+    onStartLearning: (Int) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
@@ -143,7 +145,7 @@ fun TopicDetailsDialog(
                     }
                 }
                 Button(
-                    onClick = { onStartLearning(topic) },
+                    onClick = { onStartLearning(topic.id) },
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
                 ) {

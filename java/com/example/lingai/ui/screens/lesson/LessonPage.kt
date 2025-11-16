@@ -1,6 +1,5 @@
 package com.example.lingai.ui.screens.lesson
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -41,7 +40,6 @@ fun LessonsPage(navController: NavController, viewModel: LessonsViewModel = hilt
     LaunchedEffect(Unit) {
         viewModel.navigateToLearn.collect { topicId ->
             navController.navigate("learn/${topicId}")
-            Log.d("Lesson", "LessonsPage: $topicId")
         }
     }
 

@@ -31,12 +31,22 @@ class LearnWordViewModel @Inject constructor(
 
     fun onEvent(event: LearnWordEvent) {
         when (event) {
+            is LearnWordEvent.Reset -> reset()
             is LearnWordEvent.AnswerSelected -> answer(event.index)
             LearnWordEvent.Continue -> next()
             LearnWordEvent.Skip -> skip()
             LearnWordEvent.RestartReview -> restartReview()
             LearnWordEvent.Finish -> finish()
         }
+    }
+
+    fun reset() {
+        _state.value = LearnWordState(
+            isLoading = true,
+        )
+        _state.value = LearnWordState(
+            isLoading = false,
+        )
     }
 
     private fun answer(index: Int) {

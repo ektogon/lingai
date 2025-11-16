@@ -1,6 +1,5 @@
 package com.example.lingai.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,17 +20,17 @@ import com.example.lingai.ui.screens.profile.ProfilePage
 
 @Composable
 fun NavGraph(
-    navHostController: NavHostController
+    navController: NavHostController
 ) {
     NavHost(
-        navController = navHostController,
+        navController = navController,
         startDestination = NavigationItem.Home.route,
     ) {
         composable(NavigationItem.Home.route) {
             HomePage()
         }
         composable(NavigationItem.Lessons.route) {
-            LessonsPage(navController = navHostController)
+            LessonsPage(navController = navController)
         }
         composable(NavigationItem.Generated.route) {
             GeneratedTopicsPage()
@@ -47,7 +46,6 @@ fun NavGraph(
             arguments = listOf(navArgument("topicId") { type = NavType.IntType }
             )) { backStack ->
             val topicId = backStack.arguments?.getInt("topicId")!!
-            Log.d("Lesson", "NavGraph: $topicId")
             val viewModel: LearnWordViewModel = hiltViewModel()
 
             LaunchedEffect(topicId) {
@@ -59,10 +57,8 @@ fun NavGraph(
             LearnWordScreen(
                 state = state,
                 onEvent = viewModel::onEvent,
-                onClose = { navHostController.popBackStack() }
+                onClose = { navController.popBackStack() }
             )
         }
-
-
     }
 }

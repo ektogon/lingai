@@ -4,6 +4,7 @@ import com.example.lingai.domain.model.Question
 import com.example.lingai.domain.model.WrongAnswer
 
 data class LearnWordState(
+    val isLoading: Boolean = false,
     val questions: List<Question> = emptyList(),
     val currentIndex: Int = 0,
     val selectedAnswer: Int? = null,

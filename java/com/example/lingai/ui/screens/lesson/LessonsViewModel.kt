@@ -1,12 +1,12 @@
 package com.example.lingai.ui.screens.lesson
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lingai.data.repository.LessonRepository
 import com.example.lingai.domain.model.LessonTopic
 import com.example.lingai.ui.mappers.TopicUiMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LessonsViewModel @Inject constructor(
     private val repository: LessonRepository,
-    private val uiMapper: TopicUiMapper
+    private val uiMapper: TopicUiMapper,
 ) : ViewModel() {
 
     val topics = repository.getTopicWithWords()
@@ -47,13 +47,12 @@ class LessonsViewModel @Inject constructor(
     /** Начать обучение (внутри ViewModel формируем JSON + отправляем событие) */
     fun startLearning() {
         val topic = _selectedTopic.value ?: return
-        Log.d("Lesson", "startLearning: ${topic.id}")
 
         viewModelScope.launch {
+            delay(150)
             _navigateToLearn.emit(topic.id)
         }
 
         _selectedTopic.value = null
     }
-
 }
