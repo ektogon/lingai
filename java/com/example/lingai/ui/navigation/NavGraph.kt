@@ -27,7 +27,7 @@ fun NavGraph(
         startDestination = NavigationItem.Home.route,
     ) {
         composable(NavigationItem.Home.route) {
-            HomePage()
+            HomePage(navController = navController)
         }
         composable(NavigationItem.Lessons.route) {
             LessonsPage(navController = navController)

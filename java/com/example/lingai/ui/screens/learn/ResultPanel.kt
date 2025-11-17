@@ -13,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -23,9 +20,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.R
 import com.example.lingai.ui.theme.Correct
 import com.example.lingai.ui.theme.White
 import com.example.lingai.ui.theme.Wrong
@@ -48,14 +48,16 @@ fun ResultPanel(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 33.dp),
+                .padding(20.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    if (isCorrect) Icons.Default.Check else Icons.Default.Close,
+                    painter = painterResource(
+                        id = if (isCorrect) R.drawable.ic_correct else R.drawable.ic_wrong
+                    ),
+                    tint = Color.Unspecified,
                     contentDescription = null,
-                    tint = White,
                     modifier = Modifier.size(32.dp)
                 )
                 Spacer(Modifier.width(8.dp))
@@ -69,7 +71,9 @@ fun ResultPanel(
             Spacer(Modifier.height(16.dp))
             Button(
                 onClick = onNext,
-                modifier = Modifier.fillMaxWidth().height(58.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(58.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = White),
                 shape = RoundedCornerShape(16.dp)
             ) {

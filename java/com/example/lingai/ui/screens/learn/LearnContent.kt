@@ -1,8 +1,6 @@
 package com.example.lingai.ui.screens.learn
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.lingai.domain.model.Question
 import com.example.lingai.domain.model.Word
 import com.example.lingai.domain.model.WordStatus
-import com.example.lingai.ui.theme.Background
+import com.example.lingai.ui.components.ContentColumn
 
 @Composable
 fun LearnContent(
@@ -23,54 +21,50 @@ fun LearnContent(
 ) {
     val q = state.currentQuestion ?: return
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Background)
+    ContentColumn(
     ) {
 
-        Column {
+        LearnHeader(
+            progress = state.progress,
+            current = state.currentIndex + 1,
+            total = state.total,
+            isReviewMode = state.isReviewMode,
+            onClose = onClose
+        )
 
-            LearnHeader(
-                progress = state.progress,
-                current = state.currentIndex + 1,
-                total = state.total,
-                isReviewMode = state.isReviewMode,
-                onClose = onClose // можно заменить на onClose если хочешь выход
-            )
+        QuestionContent(
+            question = q,
+            selectedAnswer = state.selectedAnswer,
+            showResult = state.showResult,
+            isCorrect = state.isCorrect,
+            onSelect = onAnswer,
+            onSkip = onSkip
+        )
+    }
 
-            QuestionContent(
-                question = q,
-                selectedAnswer = state.selectedAnswer,
-                showResult = state.showResult,
-                isCorrect = state.isCorrect,
-                onSelect = onAnswer,
-                onSkip = onSkip
-            )
-        }
-
-        if (state.showResult) {
+    if (state.showResult) {
+        Box(modifier = Modifier.fillMaxSize()) {
             ResultPanel(
+                modifier = Modifier.align(Alignment.BottomCenter),
                 isCorrect = state.isCorrect,
                 onNext = onContinue,
-                modifier = Modifier.align(Alignment.BottomCenter)
             )
         }
     }
+
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun LearnContentPreview() {
-    // ---------- ФЕЙКОВЫЕ ДАННЫЕ ----------
     val fakeQuestion = Question(
-        correctAnswer = Word("apple", "яблоко",WordStatus.NEW),
+        correctAnswer = Word("apple", "яблоко", "",WordStatus.NEW),
         variants = listOf(
-            Word("apple", "яблоко", WordStatus.NEW),
-            Word("table", "стол",WordStatus.NEW),
-            Word("cat", "кот",WordStatus.NEW),
-            Word("sun", "солнце",WordStatus.NEW)
+            Word("apple", "яблоко", "",WordStatus.NEW),
+            Word("table", "стол", "",WordStatus.NEW),
+            Word("cat", "кот", "",WordStatus.NEW),
+            Word("sun", "солнце", "",WordStatus.NEW)
         ),
         correctIndex = 0
     )

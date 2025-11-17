@@ -77,7 +77,6 @@ fun LearnWordScreen(
             state = state,
             onRestartReview = { onEvent(LearnWordEvent.RestartReview) },
             onClose = onClose
-
         )
         return
     }

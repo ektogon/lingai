@@ -1,10 +1,6 @@
 package com.example.lingai.ui.screens.dialogs
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,13 +28,9 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -50,7 +42,6 @@ import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.theme.GreenPrimary
 import com.example.lingai.ui.theme.TextPrimary
 import com.example.lingai.ui.theme.TextSecondary
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -62,32 +53,7 @@ fun TopicDetailsDialog(
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
-    val scope = rememberCoroutineScope()
 
-    // Анимация затемнения фона
-    val backgroundAlpha by animateFloatAsState(
-        targetValue = 0f,
-        animationSpec = tween(1000)
-    )
-
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color.Black.copy(alpha = backgroundAlpha),
-                        Color.Transparent
-                    )
-                )
-            )
-            .clickable(
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            ) {
-                scope.launch { sheetState.hide(); onDismiss() }
-            }
-    )
     ModalBottomSheet(
         modifier = Modifier
             .windowInsetsPadding(WindowInsets.statusBars),
@@ -96,7 +62,7 @@ fun TopicDetailsDialog(
         dragHandle = {
             Box(
                 Modifier
-                    .padding(top = 8.dp)
+                    .padding(top = 12.dp)
                     .width(40.dp)
                     .height(5.dp)
                     .clip(CircleShape)
@@ -106,11 +72,13 @@ fun TopicDetailsDialog(
         containerColor = Color.White,
         shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
     ) {
-        Box(Modifier.fillMaxSize()) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .padding(20.dp)
+        ) {
             Column(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp),
+                Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -138,7 +106,7 @@ fun TopicDetailsDialog(
 
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth().weight(1f)
                 ) {
                     items(topic.words) { word ->
                         WordRow(word)
@@ -152,6 +120,13 @@ fun TopicDetailsDialog(
                     Text("Учить слова")
                 }
             }
+//            Button(
+//                onClick = { onStartLearning(topic.id) },
+//                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
+//                colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
+//            ) {
+//                Text("Учить слова")
+//            }
         }
     }
 }
@@ -184,7 +159,7 @@ fun WordRow(word: Word) {
                 .background(color, CircleShape)
         )
         Spacer(Modifier.width(8.dp))
-        Text("${word.original} – ${word.translation}", fontSize = 14.sp)
+        Text("${word.original} [${word.transcription}]– ${word.translation}", fontSize = 14.sp)
     }
 }
 

@@ -9,7 +9,7 @@ import com.example.lingai.data.local.entity.WordEntity
 
 @Database(
     entities = [LessonTopicEntity::class, WordEntity::class],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

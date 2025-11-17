@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.dp
 import com.example.lingai.domain.model.LessonTopic
 import com.example.lingai.domain.model.Word
 import com.example.lingai.domain.model.WordStatus
-import com.example.lingai.ui.theme.*
+import com.example.lingai.ui.theme.Gold
+import com.example.lingai.ui.theme.TextPrimary
 
 @Composable
 fun PopularCategories() {
@@ -32,10 +33,10 @@ fun PopularCategories() {
             level = "B1",
             learningWords = 5,
             words = listOf(
-                Word("Mother", "Мать", WordStatus.LEARNED),
-                Word("Father", "Отец", WordStatus.LEARNED),
-                Word("Friend", "Друг", WordStatus.IN_PROGRESS),
-                Word("Child", "Ребёнок", WordStatus.NEW)
+                Word("Mother", "Мать", "",WordStatus.LEARNED),
+                Word("Father", "Отец", "",WordStatus.LEARNED),
+                Word("Friend", "Друг", "",WordStatus.IN_PROGRESS),
+                Word("Child", "Ребёнок", "",WordStatus.NEW)
             )
         ),
         LessonTopic(
@@ -47,9 +48,9 @@ fun PopularCategories() {
             level = "B2",
             learningWords = 10,
             words = listOf(
-                Word("Music", "Музыка", WordStatus.IN_PROGRESS),
-                Word("Painting", "Живопись", WordStatus.NEW),
-                Word("Reading", "Чтение", WordStatus.LEARNED)
+                Word("Music", "Музыка", "",WordStatus.IN_PROGRESS),
+                Word("Painting", "Живопись","", WordStatus.NEW),
+                Word("Reading", "Чтение", "",WordStatus.LEARNED)
             )
         ),
     )

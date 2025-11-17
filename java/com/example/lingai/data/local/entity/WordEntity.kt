@@ -25,5 +25,6 @@ data class WordEntity(
     val topicId: Int,
     val original: String,
     val translation: String,
+    val transcription: String,
     val status: String
 )

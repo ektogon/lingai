@@ -3,6 +3,7 @@ package com.example.lingai.domain.model
 data class Word(
     val original: String,
     val translation: String,
+    val transcription: String,
     val status: WordStatus
 )
 

@@ -1,9 +1,12 @@
 package com.example.lingai.ui.screens.learn
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,7 +16,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.domain.model.Question
-import com.example.lingai.ui.theme.Blue
+import com.example.lingai.ui.components.GradientButton
+import com.example.lingai.ui.theme.GreenDark
+import com.example.lingai.ui.theme.GreenPrimary
 import com.example.lingai.ui.theme.TextPrimary
 
 @Composable
@@ -43,7 +48,6 @@ fun QuestionContent(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 33.dp)
                 .weight(1f),
             verticalArrangement = Arrangement.Top
         ) {
@@ -61,17 +65,12 @@ fun QuestionContent(
         }
 
         if (!showResult) {
-            Button(
+            GradientButton(
                 onClick = onSkip,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(58.dp)
-                    .padding(horizontal = 33.dp, vertical = 24.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Blue),
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Text("ПРОПУСТИТЬ", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            }
+                text = "ПРОПУСТИТЬ",
+                colors = listOf(GreenPrimary, GreenDark)
+            )
+            Spacer(Modifier.height(24.dp))
         }
     }
 }

@@ -11,6 +11,7 @@ class WordMapper @Inject constructor() {
         return Word(
             original = entity.original,
             translation = entity.translation,
+            transcription = entity.transcription,
             status = WordStatus.valueOf(entity.status.uppercase())
         )
     }

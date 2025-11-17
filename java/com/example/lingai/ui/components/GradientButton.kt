@@ -21,9 +21,13 @@ import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.theme.White
 
 @Composable
-fun GradientButton(text: String, colors: List<Color>) {
+fun GradientButton(
+    text: String,
+    colors: List<Color>,
+    onClick: () -> Unit
+) {
     Button(
-        onClick = {},
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
