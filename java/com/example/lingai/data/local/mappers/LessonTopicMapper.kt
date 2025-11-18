@@ -13,6 +13,7 @@ class LessonTopicMapper @Inject constructor(private val wordMapper: WordMapper) 
         return LessonTopic(
             id = topic.id,
             title = topic.title,
+            translation = topic.translation,
             totalWords = topic.totalWords,
             completedWords = topic.completedWords,
             learningWords = topic.learningWords,

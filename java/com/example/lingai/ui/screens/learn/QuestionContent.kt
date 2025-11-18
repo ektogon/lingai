@@ -17,8 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.domain.model.Question
 import com.example.lingai.ui.components.GradientButton
-import com.example.lingai.ui.theme.GreenDark
-import com.example.lingai.ui.theme.GreenPrimary
 import com.example.lingai.ui.theme.TextPrimary
 
 @Composable
@@ -68,7 +66,6 @@ fun QuestionContent(
             GradientButton(
                 onClick = onSkip,
                 text = "ПРОПУСТИТЬ",
-                colors = listOf(GreenPrimary, GreenDark)
             )
             Spacer(Modifier.height(24.dp))
         }

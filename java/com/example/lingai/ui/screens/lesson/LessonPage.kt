@@ -27,8 +27,6 @@ import androidx.navigation.NavController
 import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.LazyVerticalTopics
 import com.example.lingai.ui.screens.dialogs.TopicDetailsDialog
-import com.example.lingai.ui.theme.GreenPrimary
-import com.example.lingai.ui.theme.TextPrimary
 
 
 @Composable
@@ -51,14 +49,14 @@ fun LessonsPage(navController: NavController, viewModel: LessonsViewModel = hilt
             Icon(
                 imageVector = Icons.Default.MenuBook,
                 contentDescription = null,
-                tint = GreenPrimary,
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(28.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Темы",
                 style = MaterialTheme.typography.titleLarge,
-                color = TextPrimary
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
         LazyVerticalTopics(

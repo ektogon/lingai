@@ -17,15 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.model.LessonTopicUi
-import com.example.lingai.ui.theme.TextPrimary
-import com.example.lingai.ui.theme.TextSecondary
-import com.example.lingai.ui.theme.White
+import com.example.lingai.ui.theme.ThemeGradients
 
 @Composable
 fun CategoryCard(
@@ -38,7 +35,6 @@ fun CategoryCard(
     CardBlock(
         modifier = modifier
             .clickable { onClick() },
-        backgroundColor = White
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -52,12 +48,7 @@ fun CategoryCard(
                     .clip(RoundedCornerShape(16.dp))
                     .rotate(data.rotation)
                     .background(
-                        Brush.horizontalGradient(
-                            listOf(
-                                data.backgroundColor,
-                                data.backgroundColor.copy(alpha = 0.85f)
-                            )
-                        )
+                        ThemeGradients.current.primaryGradient
                     ),
                 contentAlignment = Alignment.Center
             ) {
@@ -66,22 +57,25 @@ fun CategoryCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text(
-                text = topic.title,
-                style = MaterialTheme.typography.titleSmall,
-                color = TextPrimary,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 13.sp,
-                textAlign = TextAlign.Center
-            )
+            Box(modifier = Modifier.height(35.dp), contentAlignment = Alignment.Center) {
+                Text(
+                    text = topic.translation,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSecondary,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
+                )
+            }
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
                 text = "${topic.totalWords} слов",
                 fontSize = 12.sp,
-                color = TextSecondary
+                color = MaterialTheme.colorScheme.onSecondary
             )
+
+
 
             Spacer(modifier = Modifier.height(8.dp))
 

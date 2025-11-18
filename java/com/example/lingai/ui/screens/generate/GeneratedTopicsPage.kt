@@ -3,29 +3,51 @@ package com.example.lingai.ui.screens.generate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.components.CardBlock
+import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.LinguaSlider
 import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.components.TopicTextField
-import com.example.lingai.ui.theme.*
+import com.example.lingai.ui.theme.BluePrimary
+import com.example.lingai.ui.theme.GreenPrimary
+import com.example.lingai.ui.theme.OrangePrimary
+import com.example.lingai.ui.theme.RedPrimary
+import com.example.lingai.ui.theme.ThemeGradients
 
 data class Topic(
     val id: Int,
@@ -84,19 +106,13 @@ fun GeneratedTopicsPage() {
         )
     )
 
-    Column(
+    ContentColumn(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Background)
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 20.dp, vertical = 16.dp)
-            .padding(bottom = 64.dp)
     ) {
         // ✨ Форма генерации темы
         CardBlock(
-            gradient = Brush.linearGradient(
-                listOf(GreenPrimary, GreenDark)
-            ),
+            gradient = ThemeGradients.current.primaryGradient,
             backgroundColor = Color.Transparent,
         ) {
             Column {
@@ -189,7 +205,7 @@ fun GeneratedTopicsPage() {
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     shape = RoundedCornerShape(12.dp)
                 ) {
-                    Text("Сгенерировать тему ✨", color = GreenPrimary, fontWeight = FontWeight.Bold)
+                    Text("Сгенерировать тему ✨", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
                 }
             }
         }
@@ -200,7 +216,7 @@ fun GeneratedTopicsPage() {
         Text(
             "Созданные темы",
             fontSize = 18.sp,
-            color = TextPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium
         )
 
@@ -219,7 +235,7 @@ private fun GeneratedTopicCard(topic: Topic) {
     val isCompleted = topic.completedWords == topic.totalWords
 
     CardBlock(
-        backgroundColor = White,
+        backgroundColor = MaterialTheme.colorScheme.secondary,
     ) {
         Column {
             Row(
@@ -228,7 +244,7 @@ private fun GeneratedTopicCard(topic: Topic) {
             ) {
                 Text(
                     topic.title,
-                    color = TextPrimary,
+                    color = MaterialTheme.colorScheme.onSecondary,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f)
                 )
@@ -236,7 +252,7 @@ private fun GeneratedTopicCard(topic: Topic) {
                     Icon(
                         Icons.Default.CheckCircle,
                         contentDescription = null,
-                        tint = GreenPrimary,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -266,12 +282,12 @@ private fun GeneratedTopicCard(topic: Topic) {
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .background(GreenLight)
+                        .background(MaterialTheme.colorScheme.secondaryContainer)
                         .padding(horizontal = 10.dp, vertical = 4.dp)
                 ) {
                     Text(
                         "${topic.totalWords} слов",
-                        color = GreenPrimary,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -284,12 +300,12 @@ private fun GeneratedTopicCard(topic: Topic) {
             ) {
                 Text(
                     "Прогресс: ${topic.completedWords} / ${topic.totalWords}",
-                    color = TextSecondary,
+                    color = MaterialTheme.colorScheme.onSecondary,
                     fontSize = 13.sp
                 )
                 Text(
                     "${(progress * 100).toInt()}%",
-                    color = GreenPrimary,
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                     fontSize = 13.sp
                 )

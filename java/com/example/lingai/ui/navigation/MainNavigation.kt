@@ -5,16 +5,13 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.lingai.ui.theme.Background
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -33,7 +30,7 @@ fun MainNavigation() {
         NavigationItem.Profile
     )
     Scaffold(
-        modifier = Modifier.background(Background),
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
         bottomBar = {
             val shouldShowBottomBar = hideBottomBarRoutes.none { prefix ->
                 currentRoute?.startsWith(prefix) == true
@@ -42,14 +39,6 @@ fun MainNavigation() {
                 visible = shouldShowBottomBar,
             ) {
                 BottomNavigationBar(
-                    modifier = Modifier.shadow(
-                        elevation = 12.dp,
-                        shape = RoundedCornerShape(
-                            bottomStart = 16.dp,
-                            bottomEnd = 16.dp
-                        ),
-                        clip = false
-                    ),
                     tabs = navItems,
                     currentRoute = currentRoute ?: NavigationItem.Home.route,
                     onNavigate = { route ->

@@ -44,7 +44,6 @@ import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.GradientButton
 import com.example.lingai.ui.components.LinguaSlider
 import com.example.lingai.ui.theme.BluePrimary
-import com.example.lingai.ui.theme.GreenDark
 import com.example.lingai.ui.theme.GreenLight
 import com.example.lingai.ui.theme.GreenPrimary
 import com.example.lingai.ui.theme.OrangePrimary
@@ -85,7 +84,7 @@ fun ExamPage() {
         Text(
             text = "Экзамен",
             style = MaterialTheme.typography.headlineLarge,
-            color = TextPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(bottom = 20.dp)
         )
 
@@ -135,16 +134,15 @@ fun ExamPage() {
                 value = questionCount,
                 onValueChange = { questionCount = it },
                 valueRange = 25f..150f,
-                accentColor = GreenPrimary,
-                textColor = TextPrimary
+                accentColor = MaterialTheme.colorScheme.primary,
+                textColor = MaterialTheme.colorScheme.onSecondary
             )
         }
         Spacer(Modifier.padding(vertical = 10.dp))
         // 🚀 Кнопка старта
         GradientButton(
             text = "Начать экзамен 🚀",
-            colors = listOf(GreenPrimary, GreenDark),
-            onClick = { /* TODO: Начать экзамен */ }
+            onClick = { }
         )
 
         Spacer(Modifier.padding(vertical = 10.dp))
@@ -163,7 +161,7 @@ fun SectionTitle(emoji: String, text: String) {
         modifier = Modifier.padding(bottom = 12.dp)
     ) {
         Text(text = emoji, fontSize = 20.sp, modifier = Modifier.padding(end = 8.dp))
-        Text(text = text, style = MaterialTheme.typography.titleMedium, color = TextPrimary)
+        Text(text = text, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSecondary)
     }
 }
 
@@ -181,7 +179,7 @@ fun ExamModeOption(
             .clip(RoundedCornerShape(12.dp))
             .border(
                 2.dp,
-                if (selected) GreenPrimary else GreenLight,
+                if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer,
                 RoundedCornerShape(12.dp)
             )
             .clickable(onClick = onClick)
@@ -191,12 +189,12 @@ fun ExamModeOption(
         RadioButton(
             selected = selected,
             onClick = onClick,
-            colors = RadioButtonDefaults.colors(selectedColor = GreenPrimary)
+            colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary)
         )
         Text(emoji, fontSize = 20.sp, modifier = Modifier.padding(end = 8.dp))
         Column(Modifier.weight(1f)) {
-            Text(title, fontWeight = FontWeight.SemiBold, color = TextPrimary)
-            Text(description, fontSize = 12.sp, color = TextSecondary)
+            Text(title, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSecondary)
+            Text(description, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSecondaryContainer)
         }
     }
 }

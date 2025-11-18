@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.components.SeasonalTheme
-import com.example.lingai.ui.theme.TextPrimary
 
 //
 @Composable
@@ -67,14 +66,6 @@ fun SeasonalThemesCarousel() {
             28,
             50
         )
-    )
-    Text(
-        text = "Сезонные темы",
-        style = MaterialTheme.typography.titleLarge,
-        color = TextPrimary,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 12.dp)
     )
 
     LazyRow(

@@ -1,14 +1,19 @@
 package com.example.lingai.ui.components
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.ui.theme.*
 
 @Composable
 fun LinguaSlider(
@@ -19,8 +24,8 @@ fun LinguaSlider(
     modifier: Modifier = Modifier,
     valueSuffix: String = "",
     showRangeLabels: Boolean = true,
-    accentColor: Color = Color.White, // 🎨 новый параметр цвета
-    textColor: Color = Color.White    // позволяет менять цвет текста
+    accentColor: Color = Color.White,
+    textColor: Color = Color.White
 ) {
     Column(modifier = modifier) {
         // Заголовок и текущее значение
