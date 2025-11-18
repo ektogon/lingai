@@ -5,6 +5,7 @@ val Background = Color(0xFFF7FDF9)
 val TextPrimary = Color(0xFF3C3C3C)
 val TextSecondary = Color(0xFF1e1e1e)
 
+val BackgroundDark = Color(0xFF6F94E5)
 
 val GreenPrimary = Color(0xFF6B9E78)
 val Gray = Color(0xFF9E9E9E)

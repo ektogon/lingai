@@ -32,8 +32,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.lingai.ui.components.ProgressBar
 import com.example.lingai.ui.components.SeasonalTheme
-import com.example.lingai.ui.theme.*
+import com.example.lingai.ui.theme.TextPrimary
 
+//
 @Composable
 fun SeasonalThemesCarousel() {
 // Seasonal themes carousel
@@ -137,3 +138,111 @@ fun SeasonalThemeCard(theme: SeasonalTheme) {
         }
     }
 }
+//@Composable
+//fun FeatureList(
+//    list: List<SeasonalTheme>,
+//    modifier: Modifier = Modifier,
+//) {
+//    val lazyListState = rememberLazyListState()
+//
+//    val repeatedItems = remember { list + list + list }
+//    val middleIndex = list.size
+//
+//    // Флаг, что autoplay временно выключен
+//    var isAutoScrollEnabled by remember { mutableStateOf(true) }
+//
+//    // Текущее время последнего скролла руками
+//    var lastUserScrollTime by remember { mutableStateOf(0L) }
+//
+//    val coroutineScope = rememberCoroutineScope()
+//
+//    // === 1. Инициализация: прыжок в центр ===
+//    LaunchedEffect(Unit) {
+//        lazyListState.scrollToItem(middleIndex)
+//    }
+//
+//    // === 2. Автоскролл, который уважает паузы ===
+//    LaunchedEffect(isAutoScrollEnabled) {
+//        while (true) {
+//            if (isAutoScrollEnabled) {
+//                lazyListState.scroll(MutatePriority.PreventUserInput) {
+//                    scrollBy(1f)
+//                }
+//            }
+//            delay(8)
+//        }
+//    }
+//
+//    // === 3. Следим за ручным скроллом ===
+//    LaunchedEffect(lazyListState) {
+//        snapshotFlow { lazyListState.isScrollInProgress }
+//            .collect { isScrolling ->
+//                if (isScrolling) {
+//                    // пользователь начал скролл
+//                    lastUserScrollTime = System.currentTimeMillis()
+//                    isAutoScrollEnabled = false
+//                } else {
+//                    // пользователь закончил скролл — ждём 5 секунд
+//                    coroutineScope.launch {
+//                        delay(5000)
+//                        val now = System.currentTimeMillis()
+//                        if (now - lastUserScrollTime >= 5000) {
+//                            isAutoScrollEnabled = true
+//                        }
+//                    }
+//                }
+//            }
+//    }
+//
+//    // === 4. Следим за уходом к краям и прыгаем обратно ===
+//    LaunchedEffect(lazyListState) {
+//        snapshotFlow { lazyListState.firstVisibleItemIndex }
+//            .collect { first ->
+//                val total = repeatedItems.size
+//                val safeZone = list.size
+//
+//                when {
+//                    first < middleIndex - safeZone ->
+//                        lazyListState.scrollToItem(first + list.size)
+//
+//                    first > middleIndex + safeZone ->
+//                        lazyListState.scrollToItem(first - list.size)
+//                }
+//            }
+//    }
+//
+//    LazyRow(
+//        state = lazyListState,
+//        modifier = modifier
+//            .pointerInput(Unit) {
+//                // блокируем автоскрол по любому тачу
+//                awaitPointerEventScope {
+//                    while (true) {
+//                        awaitPointerEvent()
+//                        lastUserScrollTime = System.currentTimeMillis()
+//                        isAutoScrollEnabled = false
+//                    }
+//                }
+//            },
+//        horizontalArrangement = Arrangement.spacedBy(12.dp)
+//    ) {
+//        items(repeatedItems) { item ->
+//            SeasonalThemeCard(item)
+//        }
+//    }
+//}
+//
+//
+//
+//
+//private tailrec suspend fun autoScroll(lazyListState: LazyListState) {
+//    lazyListState.scroll(MutatePriority.PreventUserInput) {
+//        scrollBy(SCROLL_DX)
+//    }
+//    delay(DELAY_BETWEEN_SCROLL_MS)
+//
+//    autoScroll(lazyListState)
+//}
+//
+//private const val DELAY_BETWEEN_SCROLL_MS = 8L
+//private const val SCROLL_DX = 1f
