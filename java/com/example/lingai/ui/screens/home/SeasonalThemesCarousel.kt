@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.lingai.ui.components.ProgressBar
-import com.example.lingai.ui.components.SeasonalTheme
+import com.example.lingai.ui.model.SeasonalTheme
 
 //
 @Composable

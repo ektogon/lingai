@@ -32,9 +32,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.ui.theme.Background
-import com.example.lingai.ui.theme.Neutral
-import com.example.lingai.ui.theme.NeutralDark
-import com.example.lingai.ui.theme.Orange
+import com.example.lingai.ui.theme.GreenLight
+import com.example.lingai.ui.theme.GreenPrimary
+import com.example.lingai.ui.theme.OrangePrimary
 import com.example.lingai.ui.theme.TextPrimary
 import com.example.lingai.ui.theme.TextSecondary
 import com.example.lingai.ui.theme.White
@@ -104,7 +104,7 @@ fun FinishedScreen(
                         text = "$correctCount / ${state.total}",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = NeutralDark
+                        color = GreenPrimary
                     )
 
                     Spacer(Modifier.height(16.dp))
@@ -115,7 +115,7 @@ fun FinishedScreen(
                             .fillMaxWidth()
                             .height(12.dp)
                             .clip(RoundedCornerShape(6.dp))
-                            .background(Neutral)
+                            .background(GreenLight)
                     ) {
                         Box(
                             modifier = Modifier
@@ -123,7 +123,7 @@ fun FinishedScreen(
                                 .fillMaxWidth(correctCount.toFloat() / state.total.toFloat())
                                 .background(
                                     Brush.horizontalGradient(
-                                        listOf(NeutralDark, Color(0xFF588B5E))
+                                        listOf(GreenPrimary, Color(0xFF588B5E))
                                     )
                                 )
                         )
@@ -155,7 +155,7 @@ fun FinishedScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Orange),
+                        colors = ButtonDefaults.buttonColors(containerColor = OrangePrimary),
                         shape = RoundedCornerShape(16.dp)
                     ) {
                         Icon(Icons.Default.Close, contentDescription = null)
@@ -182,7 +182,7 @@ fun FinishedScreen(
                             .fillMaxSize()
                             .background(
                                 Brush.horizontalGradient(
-                                    listOf(NeutralDark, Color(0xFF588B5E))
+                                    listOf(GreenPrimary, Color(0xFF588B5E))
                                 )
                             ),
                         contentAlignment = Alignment.Center

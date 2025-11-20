@@ -1,4 +1,4 @@
-package com.example.lingai.ui.components
+package com.example.lingai.ui.model
 
 data class SeasonalTheme(
     val id: Int,

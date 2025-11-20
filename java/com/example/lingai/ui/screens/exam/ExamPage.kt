@@ -44,12 +44,9 @@ import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.GradientButton
 import com.example.lingai.ui.components.LinguaSlider
 import com.example.lingai.ui.theme.BluePrimary
-import com.example.lingai.ui.theme.GreenLight
 import com.example.lingai.ui.theme.GreenPrimary
 import com.example.lingai.ui.theme.OrangePrimary
 import com.example.lingai.ui.theme.RedPrimary
-import com.example.lingai.ui.theme.TextPrimary
-import com.example.lingai.ui.theme.TextSecondary
 import com.example.lingai.ui.theme.White
 
 // 🧩 Модель сложности
@@ -72,10 +69,11 @@ fun ExamPage() {
     )
 
     val difficulties = listOf(
-        ExamDifficulty("easy", "Легкий", GreenPrimary),
-        ExamDifficulty("medium", "Средний", BluePrimary),
-        ExamDifficulty("hard", "Сложный", OrangePrimary),
-        ExamDifficulty("expert", "Очень сложный", RedPrimary)
+        ExamDifficulty("A1", "A1", GreenPrimary),
+        ExamDifficulty("A2", "A2", BluePrimary),
+        ExamDifficulty("B1", "B1", OrangePrimary),
+        ExamDifficulty("B2", "B2", RedPrimary),
+        ExamDifficulty("C1", "C1", RedPrimary),
     )
 
     ContentColumn(
@@ -179,7 +177,8 @@ fun ExamModeOption(
             .clip(RoundedCornerShape(12.dp))
             .border(
                 2.dp,
-                if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer,
+                if (selected) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.secondaryContainer,
                 RoundedCornerShape(12.dp)
             )
             .clickable(onClick = onClick)
@@ -193,8 +192,8 @@ fun ExamModeOption(
         )
         Text(emoji, fontSize = 20.sp, modifier = Modifier.padding(end = 8.dp))
         Column(Modifier.weight(1f)) {
-            Text(title, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSecondary)
-            Text(description, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSecondaryContainer)
+            Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSecondary)
+            Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSecondary)
         }
     }
 }
@@ -205,7 +204,7 @@ fun ExamSelectionList(title: String, items: List<String>, selectedItems: Mutable
     Text(
         title,
         fontSize = 14.sp,
-        color = TextSecondary,
+        color = MaterialTheme.colorScheme.onSecondary,
         modifier = Modifier.padding(bottom = 12.dp)
     )
 
@@ -218,10 +217,10 @@ fun ExamSelectionList(title: String, items: List<String>, selectedItems: Mutable
                 .clip(RoundedCornerShape(12.dp))
                 .border(
                     2.dp,
-                    if (isSelected) GreenPrimary else GreenLight,
+                    if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer,
                     RoundedCornerShape(12.dp)
                 )
-                .background(if (isSelected) GreenLight else Color.Transparent)
+                .background(if (isSelected) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent)
                 .clickable {
                     if (isSelected) selectedItems.remove(item) else selectedItems.add(item)
                 }
@@ -235,10 +234,10 @@ fun ExamSelectionList(title: String, items: List<String>, selectedItems: Mutable
                         item
                     )
                 },
-                colors = CheckboxDefaults.colors(checkedColor = GreenPrimary)
+                colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary)
             )
             Spacer(Modifier.width(8.dp))
-            Text(item, color = TextPrimary)
+            Text(item, color = MaterialTheme.colorScheme.onSecondary,)
         }
     }
 }
@@ -252,7 +251,7 @@ fun DifficultySelection(
     Text(
         text = "Выберите сложность (${selectedDifficulties.size} выбрано)",
         fontSize = 14.sp,
-        color = TextSecondary,
+        color = MaterialTheme.colorScheme.onSecondary,
         modifier = Modifier.padding(bottom = 12.dp)
     )
 
@@ -268,16 +267,16 @@ fun DifficultySelection(
                     .fillMaxWidth()
                     .height(48.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isSelected) difficulty.color else White
+                    containerColor = if (isSelected) difficulty.color else MaterialTheme.colorScheme.secondary
                 ),
                 shape = RoundedCornerShape(12.dp),
                 border = if (!isSelected)
-                    BorderStroke(2.dp, GreenLight)
+                    BorderStroke(2.dp, MaterialTheme.colorScheme.secondaryContainer)
                 else null
             ) {
                 Text(
                     difficulty.label,
-                    color = if (isSelected) White else TextPrimary,
+                    color = if (isSelected) White else MaterialTheme.colorScheme.onSecondary,
                     fontWeight = FontWeight.Bold
                 )
             }

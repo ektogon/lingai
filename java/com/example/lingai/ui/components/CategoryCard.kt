@@ -57,7 +57,7 @@ fun CategoryCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Box(modifier = Modifier.height(35.dp), contentAlignment = Alignment.Center) {
+            Box(modifier = Modifier.height(38.dp), contentAlignment = Alignment.Center) {
                 Text(
                     text = topic.translation,
                     style = MaterialTheme.typography.titleSmall,

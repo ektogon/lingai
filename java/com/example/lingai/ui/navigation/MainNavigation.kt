@@ -15,7 +15,8 @@ import androidx.navigation.compose.rememberNavController
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainNavigation() {
+fun MainNavigation(darkTheme: Boolean ,
+                   onThemeUpdate: () -> Unit) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -55,7 +56,7 @@ fun MainNavigation() {
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
-            NavGraph(navController = navController)
+            NavGraph(navController = navController, darkTheme, onThemeUpdate)
         }
     }
 }

@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.example.lingai.R
 import com.example.lingai.ui.theme.Correct
 import com.example.lingai.ui.theme.White
-import com.example.lingai.ui.theme.Wrong
+import com.example.lingai.ui.theme.RedPrimary
 
 @Composable
 fun ResultPanel(
@@ -36,7 +36,7 @@ fun ResultPanel(
     isCorrect: Boolean,
     onNext: () -> Unit
 ) {
-    val bgColor = if (isCorrect) Correct else Wrong
+    val bgColor = if (isCorrect) Correct else RedPrimary
 
     Box(
         modifier = modifier

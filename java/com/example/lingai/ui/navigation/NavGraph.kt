@@ -20,7 +20,9 @@ import com.example.lingai.ui.screens.profile.ProfilePage
 
 @Composable
 fun NavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    darkTheme: Boolean ,
+    onThemeUpdate: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -39,7 +41,7 @@ fun NavGraph(
             ExamPage()
         }
         composable(NavigationItem.Profile.route) {
-            ProfilePage()
+            ProfilePage(darkTheme,onThemeUpdate)
         }
         composable(
             route = "learn/{topicId}",

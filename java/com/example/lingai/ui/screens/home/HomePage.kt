@@ -28,6 +28,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.GradientButton
+import com.example.lingai.ui.theme.Gold
 import com.example.lingai.ui.theme.OrangeLight
 import com.example.lingai.ui.theme.OrangePrimary
 
@@ -72,7 +73,7 @@ fun HomePage(navController: NavController) {
             Icon(
                 Icons.Default.Star,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                tint = Gold,
                 modifier = Modifier.size(18.dp)
             )
         }

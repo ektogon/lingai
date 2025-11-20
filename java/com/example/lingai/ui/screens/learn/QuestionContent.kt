@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lingai.domain.model.Question
 import com.example.lingai.ui.components.GradientButton
-import com.example.lingai.ui.theme.TextPrimary
 
 @Composable
 fun QuestionContent(
@@ -31,18 +30,17 @@ fun QuestionContent(
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
+        Spacer(Modifier.height(60.dp))
         Text(
             text = question.correctAnswer.original,
             fontSize = 50.sp,
             fontWeight = FontWeight.Bold,
-            color = TextPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 32.dp)
         )
-
-        Spacer(Modifier.height(40.dp))
-
+        Spacer(Modifier.height(60.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -61,7 +59,6 @@ fun QuestionContent(
                 Spacer(Modifier.height(12.dp))
             }
         }
-
         if (!showResult) {
             GradientButton(
                 onClick = onSkip,

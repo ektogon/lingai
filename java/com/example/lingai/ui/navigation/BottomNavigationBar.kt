@@ -50,9 +50,9 @@ fun BottomNavigationBar(
                     Text(
                         text = tab.title,
                         fontFamily = MaterialTheme.typography.labelLarge.fontFamily,
-                        fontSize = 12.sp,
+                        fontSize = 11.sp,
                         color = if (isActive) MaterialTheme.colorScheme.onSurface else Gray,
-                        fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Normal
+                        fontWeight = if (isActive) FontWeight.Bold else FontWeight.SemiBold
                     )
                 },
             )

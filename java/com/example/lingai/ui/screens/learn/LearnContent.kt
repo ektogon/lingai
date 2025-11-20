@@ -1,15 +1,13 @@
 package com.example.lingai.ui.screens.learn
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.lingai.domain.model.Question
-import com.example.lingai.domain.model.Word
-import com.example.lingai.domain.model.WordStatus
-import com.example.lingai.ui.components.ContentColumn
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun LearnContent(
@@ -20,10 +18,11 @@ fun LearnContent(
     onClose: () -> Unit
 ) {
     val q = state.currentQuestion ?: return
-
-    ContentColumn(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 20.dp),
     ) {
-
         LearnHeader(
             progress = state.progress,
             current = state.currentIndex + 1,
@@ -31,7 +30,6 @@ fun LearnContent(
             isReviewMode = state.isReviewMode,
             onClose = onClose
         )
-
         QuestionContent(
             question = q,
             selectedAnswer = state.selectedAnswer,
@@ -51,41 +49,4 @@ fun LearnContent(
             )
         }
     }
-
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun LearnContentPreview() {
-    val fakeQuestion = Question(
-        correctAnswer = Word("apple", "яблоко", "",WordStatus.NEW),
-        variants = listOf(
-            Word("apple", "яблоко", "",WordStatus.NEW),
-            Word("table", "стол", "",WordStatus.NEW),
-            Word("cat", "кот", "",WordStatus.NEW),
-            Word("sun", "солнце", "",WordStatus.NEW)
-        ),
-        correctIndex = 0
-    )
-
-    val fakeState = LearnWordState(
-        isLoading = true,
-        isFinished = false,
-        currentIndex = 0,
-        questions = listOf(fakeQuestion),
-        wrongAnswers = emptyList(),
-        selectedAnswer = null,
-        showResult = false,
-        isCorrect = false,
-        isReviewMode = false
-    )
-
-    LearnContent(
-        state = fakeState,
-        onAnswer = {},
-        onSkip = {},
-        onContinue = {},
-        onClose = {}
-    )
 }

@@ -39,9 +39,6 @@ import com.example.lingai.domain.model.LessonTopic
 import com.example.lingai.domain.model.Word
 import com.example.lingai.domain.model.WordStatus
 import com.example.lingai.ui.components.ProgressBar
-import com.example.lingai.ui.theme.GreenPrimary
-import com.example.lingai.ui.theme.TextPrimary
-import com.example.lingai.ui.theme.TextSecondary
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -69,7 +66,7 @@ fun TopicDetailsDialog(
                     .background(Color.LightGray)
             )
         },
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
         shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
     ) {
         Box(
@@ -86,7 +83,7 @@ fun TopicDetailsDialog(
                 Text(
                     topic.title,
                     style = MaterialTheme.typography.titleLarge,
-                    color = TextPrimary,
+                    color = MaterialTheme.colorScheme.onSecondary,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -95,18 +92,20 @@ fun TopicDetailsDialog(
 
                 Row(
                     Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.End
                 ) {
-                    InfoChip("Всего", "${topic.totalWords}")
-                    InfoChip("Выучено", "${topic.completedWords}")
-                    InfoChip("Изучается", "${topic.learningWords}")
+                    Text(
+                        text = "${topic.completedWords}/${topic.totalWords}",
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
                 }
 
                 Divider(thickness = 1.dp, color = Color(0xFFE0E0E0))
 
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxWidth().weight(1f)
+                        .fillMaxWidth()
+                        .weight(1f)
                 ) {
                     items(topic.words) { word ->
                         WordRow(word)
@@ -115,27 +114,12 @@ fun TopicDetailsDialog(
                 Button(
                     onClick = { onStartLearning(topic.id) },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text("Учить слова")
                 }
             }
-//            Button(
-//                onClick = { onStartLearning(topic.id) },
-//                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter),
-//                colors = ButtonDefaults.buttonColors(containerColor = GreenPrimary)
-//            ) {
-//                Text("Учить слова")
-//            }
         }
-    }
-}
-
-@Composable
-fun InfoChip(label: String, value: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(label, fontSize = 12.sp, color = TextSecondary)
-        Text(value, fontWeight = FontWeight.Bold, color = TextPrimary)
     }
 }
 
