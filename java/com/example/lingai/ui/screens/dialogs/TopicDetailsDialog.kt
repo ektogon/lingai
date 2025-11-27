@@ -35,15 +35,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.domain.model.LessonTopic
-import com.example.lingai.domain.model.Word
-import com.example.lingai.domain.model.WordStatus
+import com.example.lingai.domain.models.LessonTopicModel
+import com.example.lingai.domain.models.Word
+import com.example.lingai.domain.models.WordStatus
 import com.example.lingai.ui.components.ProgressBar
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 @Composable
 fun TopicDetailsDialog(
-    topic: LessonTopic,
+    topic: LessonTopicModel,
     onDismiss: () -> Unit,
     onStartLearning: (Int) -> Unit
 ) {

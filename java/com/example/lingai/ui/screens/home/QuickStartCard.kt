@@ -23,18 +23,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.ui.theme.GreenPrimary
-import com.example.lingai.ui.theme.OrangeDark
-import com.example.lingai.ui.theme.OrangeLight
 import com.example.lingai.ui.theme.OrangePrimary
 import com.example.lingai.ui.theme.TextPrimary
-import com.example.lingai.ui.theme.TextSecondary
-import com.example.lingai.ui.theme.White
+import com.example.lingai.ui.theme.ThemeGradients
 
 @Composable
 fun QuickStartCard() {
@@ -44,15 +39,13 @@ fun QuickStartCard() {
             .clickable { },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    Brush.horizontalGradient(
-                        listOf(OrangeLight, Color(0xFFFFD89B))
-                    )
+                    MaterialTheme.colorScheme.secondaryContainer
                 )
                 .padding(16.dp)
         ) {
@@ -65,9 +58,7 @@ fun QuickStartCard() {
                         .size(64.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(
-                            Brush.horizontalGradient(
-                                listOf(OrangePrimary, OrangeDark)
-                            )
+                            ThemeGradients.current.primaryGradient
                         ),
                     contentAlignment = Alignment.Center
                 ) {
@@ -88,13 +79,13 @@ fun QuickStartCard() {
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)
-                                .background(GreenPrimary)
+                                .background(MaterialTheme.colorScheme.primary)
                                 .padding(horizontal = 8.dp, vertical = 1.dp)
                         ) {
                             Text(
                                 text = "НОВЫЙ",
                                 fontSize = 10.sp,
-                                color = White,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 fontWeight = FontWeight.Bold
                             )
                         }
@@ -102,7 +93,7 @@ fun QuickStartCard() {
                     Text(
                         text = "Базовые фразы приветствия",
                         fontSize = 14.sp,
-                        color = TextSecondary,
+                        color = TextPrimary,
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Row(

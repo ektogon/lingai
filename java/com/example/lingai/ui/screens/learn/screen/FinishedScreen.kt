@@ -1,4 +1,4 @@
-package com.example.lingai.ui.screens.learn
+package com.example.lingai.ui.screens.learn.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.screens.learn.LearnWordState
 import com.example.lingai.ui.theme.Background
 import com.example.lingai.ui.theme.GreenLight
 import com.example.lingai.ui.theme.GreenPrimary

@@ -1,93 +1,83 @@
 package com.example.lingai.ui.screens.profile
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.ui.components.CardBlock
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.lingai.R
 import com.example.lingai.ui.components.ContentColumn
 import com.example.lingai.ui.components.ThemeSwitcher
-import com.example.lingai.ui.theme.Blue600
-import com.example.lingai.ui.theme.Blue700
-import com.example.lingai.ui.theme.BluePrimary
-import com.example.lingai.ui.theme.Gold
-import com.example.lingai.ui.theme.GoldDark
-import com.example.lingai.ui.theme.GreenLight
-import com.example.lingai.ui.theme.GreenPrimary
-import com.example.lingai.ui.theme.OrangeLight
-import com.example.lingai.ui.theme.OrangePrimary
-import com.example.lingai.ui.theme.TextPrimary
+import com.example.lingai.ui.screens.dialogs.LoginDialog
+import com.example.lingai.ui.screens.dialogs.RegisterDialog
+import com.example.lingai.ui.theme.LingaiTheme
 import com.example.lingai.ui.theme.TextSecondary
 import com.example.lingai.ui.theme.ThemeGradients
-
-// 🎨 Цвета
-
-// 📊 Модели
-data class Stat(val emoji: String, val label: String, val value: String, val color: Color)
-data class Achievement(
-    val emoji: String,
-    val title: String,
-    val description: String,
-    val background: Brush,
-    val iconBackground: Brush
-)
 
 // 🌿 Главный экран профиля
 @Composable
 fun ProfilePage(
     darkTheme: Boolean,
-    onThemeUpdate: () -> Unit
-) {
-    val stats = listOf(
-        Stat("🔥", "Дней подряд", "15", Gold),
-        Stat("💎", "Очков", "2,845", GreenPrimary),
-        Stat("🎯", "Слов изучено", "342", BluePrimary),
-        Stat("⏱️", "Минут сегодня", "45", OrangePrimary)
-    )
+    onThemeUpdate: () -> Unit,
+    viewModel: ProfileViewModel = hiltViewModel(),
 
-    val achievements = listOf(
-        Achievement(
-            "🏆", "Первая неделя", "7 дней подряд",
-            Brush.horizontalGradient(listOf(OrangeLight, Color(0xFFFFD89B))),
-            Brush.horizontalGradient(listOf(Gold, GoldDark))
-        ),
-        Achievement(
-            "📚", "Знаток слов", "300 слов изучено",
-            Brush.horizontalGradient(listOf(GreenLight, GreenLight)),
-            ThemeGradients.current.primaryGradient
-        ),
-        Achievement(
-            "⚡", "Быстрый старт", "Первая тема завершена",
-            Brush.horizontalGradient(listOf(GreenLight, Color(0xFFD4EDE0))),
-            Brush.horizontalGradient(listOf(Blue600, Blue700))
-        )
-    )
+    ) {
+    val context = LocalContext.current
+    val username = viewModel.userName.collectAsState().value
+    val isLoggedIn by viewModel.isLoggedIn.collectAsState()
+    val isLoginDialogVisible by viewModel.isLoginDialogVisible.collectAsState()
+    val isRegisterDialogVisible by viewModel.isRegisterDialogVisible.collectAsState()
+    val stats by viewModel.stats.collectAsState()
+    val achievements by viewModel.achievements.collectAsState()
+    val error by viewModel.error.collectAsState()
+    // Если ошибка не null, показываем Toast
+    LaunchedEffect(Unit) {
+        viewModel.loadCurrentUserName()
+    }
+    LaunchedEffect(error) {
+        error?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     ContentColumn(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Row(
@@ -104,17 +94,25 @@ fun ProfilePage(
             )
 
             ThemeSwitcher(
-                darkTheme = darkTheme,
-                size = 30.dp,
-                padding = 5.dp,
-                onClick = onThemeUpdate
+                darkTheme = darkTheme, size = 30.dp, padding = 5.dp, onClick = onThemeUpdate
             )
         }
-        // 👤 Карточка пользователя
-        ProfileCard(stats)
+        ProfileCard {
+            if (isLoggedIn) UserInfo(
+                username,
+                { viewModel.logOut() }) else Welcome(onClick = { action ->
+                if (action == "auth") {
+                    viewModel.showLoginDialog()  // Показать диалог для входа
+                } else {
+                    viewModel.showRegisterDialog() // Показать диалог для регистрации
+                }
+            })
+            Spacer(Modifier.height(30.dp))
+            StatsGrid(stats)
+        }
         Spacer(Modifier.height(20.dp))
-        // 🏅 Достижения
-        InfoCard(title = "Недавние достижения") {
+
+        ProfileCard(title = "Недавние достижения") {
             achievements.forEachIndexed { i, ach ->
                 AchievementCard(ach)
                 if (i != achievements.lastIndex) Spacer(Modifier.height(10.dp))
@@ -122,36 +120,112 @@ fun ProfilePage(
         }
         Spacer(Modifier.height(20.dp))
     }
+
+    Spacer(Modifier.height(20.dp))
+    if (isLoginDialogVisible) {
+        LoginDialog(
+            onDismiss = { viewModel.dismissDialogs() },
+            onSwitchToRegister = { viewModel.showRegisterDialog() },
+        )
+    }
+    if (isRegisterDialogVisible) {
+        RegisterDialog(
+            onDismiss = { viewModel.dismissDialogs() },
+            onSwitchToLogin = { viewModel.showLoginDialog() },
+        )
+    }
 }
 
-// =================== 🔽 Компоненты ===================
 
+// =================== 🔽 Компоненты ===================
 @Composable
-fun ProfileCard(stats: List<Stat>) {
-    InfoCard {
+fun Welcome(onClick: (String) -> Unit) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = "Добро пожаловать!",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSecondary,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        Text(
+            text = "Войдите или зарегистрируйтесь, чтобы сохранять свой прогресс и достижения",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        // Buttons
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Avatar("ИП")
-            Column {
-                Text(
-                    "Иван Петров",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSecondary
+            Button(
+                onClick = { onClick("auth") },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(44.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
-                Text(
-                    "Изучаю английский",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSecondary
+            ) {
+                Text("Войти", fontWeight = FontWeight.SemiBold)
+            }
+
+            OutlinedButton(
+                onClick = { onClick("reg") },
+                modifier = Modifier
+                    .weight(1f)
+                    .height(44.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.primary
+                ),
+                border = ButtonDefaults.outlinedButtonBorder.copy(
+                    width = 2.dp, brush = ThemeGradients.current.primaryGradient
                 )
+            ) {
+                Text("Регистрация", fontWeight = FontWeight.SemiBold)
             }
         }
+    }
+}
 
-        StatsGrid(stats)
+@Composable
+fun UserInfo(username: String, onLogout: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Avatar("ИП")
+        Spacer(Modifier.width(16.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = username,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+            Text(
+                "Изучаю английский",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSecondary
+            )
+        }
+        Button(
+            onClick = onLogout,
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_log_out),
+                contentDescription = "exit",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(24.dp)
+            )
+        }
     }
 }
 
@@ -161,8 +235,7 @@ fun Avatar(initials: String) {
         modifier = Modifier
             .size(64.dp)
             .clip(CircleShape)
-            .background(ThemeGradients.current.primaryGradient),
-        contentAlignment = Alignment.Center
+            .background(ThemeGradients.current.primaryGradient), contentAlignment = Alignment.Center
     ) {
         Text(initials, color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
     }
@@ -170,16 +243,18 @@ fun Avatar(initials: String) {
 
 @Composable
 fun StatsGrid(stats: List<Stat>) {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+    Row(
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
         stats.chunked(2).forEach { columnStats ->
             Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 columnStats.forEach { StatCard(it) }
             }
         }
     }
+
 }
 
 @Composable
@@ -202,68 +277,14 @@ fun StatCard(stat: Stat) {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
-fun AchievementCard(achievement: Achievement) {
-    Card(
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Box(modifier = Modifier.background(achievement.background)) {
-            Row(
-                modifier = Modifier.padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(CircleShape)
-                        .background(achievement.iconBackground),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(achievement.emoji, fontSize = 16.sp, color = Color.White)
-                }
-                Column(Modifier.weight(1f)) {
-                    Text(
-                        achievement.title,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = TextPrimary,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        achievement.description,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = TextSecondary
-                    )
-                }
-            }
-        }
-    }
-}
+fun ProfilePagePreview() {
+    var darkTheme by remember { mutableStateOf(false) }
 
-@Composable
-fun InfoCard(
-    title: String? = null,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    CardBlock {
-        Column {
-            if (title != null) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSecondary,
-                    modifier = Modifier.padding(bottom = 12.dp)
-                )
-            }
-            content()
-        }
+    // Включаем MaterialTheme с темой
+    LingaiTheme(darkTheme = darkTheme) {
+        ProfilePage(
+            darkTheme = darkTheme, onThemeUpdate = { darkTheme = !darkTheme })
     }
-}
-
-@Preview
-@Composable
-fun ProfilePagePrew() {
-    ProfilePage(true, { })
 }

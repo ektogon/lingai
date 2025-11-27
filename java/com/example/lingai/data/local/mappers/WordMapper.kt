@@ -1,8 +1,8 @@
 package com.example.lingai.data.local.mappers
 
 import com.example.lingai.data.local.entity.WordEntity
-import com.example.lingai.domain.model.Word
-import com.example.lingai.domain.model.WordStatus
+import com.example.lingai.domain.models.Word
+import com.example.lingai.domain.models.WordStatus
 import javax.inject.Inject
 
 class WordMapper @Inject constructor() {

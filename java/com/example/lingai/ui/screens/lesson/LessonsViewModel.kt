@@ -2,8 +2,8 @@ package com.example.lingai.ui.screens.lesson
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lingai.data.repository.LessonRepository
-import com.example.lingai.domain.model.LessonTopic
+import com.example.lingai.domain.repository.LessonRepository
+import com.example.lingai.domain.models.LessonTopicModel
 import com.example.lingai.ui.mappers.TopicUiMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -27,7 +27,7 @@ class LessonsViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
     val topicsUi = topics.map{uiMapper.mapToUi(it)}.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
     // Выбранная тема
-    private val _selectedTopic = MutableStateFlow<LessonTopic?>(null)
+    private val _selectedTopic = MutableStateFlow<LessonTopicModel?>(null)
     val selectedTopic = _selectedTopic.asStateFlow()
 
     // Навигационные события (одноразовые)
@@ -35,7 +35,7 @@ class LessonsViewModel @Inject constructor(
     val navigateToLearn = _navigateToLearn.asSharedFlow()
 
     /** Пользователь нажал на тему */
-    fun onTopicClicked(topic: LessonTopic) {
+    fun onTopicClicked(topic: LessonTopicModel) {
         _selectedTopic.value = topic
     }
 

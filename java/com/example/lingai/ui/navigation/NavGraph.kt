@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.lingai.R
 import com.example.lingai.ui.screens.exam.ExamPage
 import com.example.lingai.ui.screens.generate.GeneratedTopicsPage
 import com.example.lingai.ui.screens.home.HomePage
@@ -18,6 +19,14 @@ import com.example.lingai.ui.screens.learn.LearnWordViewModel
 import com.example.lingai.ui.screens.lesson.LessonsPage
 import com.example.lingai.ui.screens.profile.ProfilePage
 
+sealed class NavigationItem(val title: String, val icon : Int, val route: String)
+{
+    object Home : NavigationItem("Главная", R.drawable.ic_home,"home")
+    object Lessons : NavigationItem("Темы",R.drawable.ic_book_open_text,"lessons")
+    object Generated : NavigationItem("Генерация",R.drawable.ic_sparkles,"generated")
+    object Exam :NavigationItem("Экзамен",R.drawable.ic_clipboard_check,"exam")
+    object Profile : NavigationItem("Профиль",R.drawable.ic_user,"profile")
+}
 @Composable
 fun NavGraph(
     navController: NavHostController,

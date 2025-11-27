@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.lingai.ui.screens.learn.screen.FinishedScreen
+import com.example.lingai.ui.screens.learn.screen.LearnContent
 import kotlinx.coroutines.delay
 
 @Composable

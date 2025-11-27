@@ -1,4 +1,4 @@
-package com.example.lingai
+package com.example.lingai.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

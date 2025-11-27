@@ -1,6 +1,6 @@
-package com.example.lingai.domain.model
+package com.example.lingai.domain.models
 
-data class LessonTopic(
+data class LessonTopicModel(
     val id: Int,
     val title: String,
     val translation: String,

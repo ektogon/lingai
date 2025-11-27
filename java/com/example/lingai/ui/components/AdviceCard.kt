@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lingai.ui.theme.TextPrimary
 
 @Composable
 fun AdviceCard( text: String) {
@@ -23,7 +24,7 @@ fun AdviceCard( text: String) {
     ) {
         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.Top) {
             Text("\uD83D\uDCA1", fontSize = 24.sp, modifier = Modifier.padding(end = 10.dp))
-            Text(text, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSecondaryContainer)
+            Text(text, style = MaterialTheme.typography.bodyMedium, color = TextPrimary)
         }
     }
 }

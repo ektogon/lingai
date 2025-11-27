@@ -1,4 +1,4 @@
-package com.example.lingai.ui.screens.learn
+package com.example.lingai.ui.screens.learn.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

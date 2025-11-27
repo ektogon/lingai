@@ -1,6 +1,7 @@
-package com.example.lingai.ui.screens.learn
+package com.example.lingai.ui.screens.learn.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,12 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.lingai.domain.model.Question
+import com.example.lingai.domain.models.QuestionModel
 import com.example.lingai.ui.components.GradientButton
 
 @Composable
 fun QuestionContent(
-    question: Question,
+    question: QuestionModel,
     selectedAnswer: Int?,
     showResult: Boolean,
     isCorrect: Boolean,
@@ -33,13 +34,17 @@ fun QuestionContent(
 
     ) {
         Spacer(Modifier.height(60.dp))
-        Text(
-            text = question.correctAnswer.original,
-            fontSize = 50.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground,
-            textAlign = TextAlign.Center,
-        )
+        Box(modifier = Modifier.height(104.dp)){
+            Text(
+                text = question.correctAnswer.original,
+                fontSize = 50.sp,
+                lineHeight = 52.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
+            )
+        }
+
         Spacer(Modifier.height(60.dp))
         Column(
             modifier = Modifier

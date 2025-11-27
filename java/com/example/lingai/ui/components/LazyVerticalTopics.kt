@@ -9,13 +9,13 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.lingai.domain.model.LessonTopic
+import com.example.lingai.domain.models.LessonTopicModel
 import com.example.lingai.ui.model.LessonTopicUi
 
 @Composable
 fun LazyVerticalTopics(
     topics: List<LessonTopicUi>,
-    onTopicSelected: (LessonTopic) -> Unit
+    onTopicSelected: (LessonTopicModel) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),

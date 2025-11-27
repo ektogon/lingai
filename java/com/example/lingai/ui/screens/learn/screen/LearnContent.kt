@@ -1,4 +1,4 @@
-package com.example.lingai.ui.screens.learn
+package com.example.lingai.ui.screens.learn.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.lingai.ui.screens.learn.LearnWordState
 
 @Composable
 fun LearnContent(

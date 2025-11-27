@@ -2,8 +2,8 @@ package com.example.lingai.ui.screens.learn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lingai.data.repository.LessonRepository
-import com.example.lingai.domain.model.WrongAnswer
+import com.example.lingai.domain.repository.LessonRepository
+import com.example.lingai.domain.models.WrongAnswerModel
 import com.example.lingai.domain.usecase.GenerateQuestionsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,7 +55,7 @@ class LearnWordViewModel @Inject constructor(
         val correct = index == q.correctIndex
 
         val wrong = if (!correct && !s.isReviewMode)
-            s.wrongAnswers + WrongAnswer(q, index)
+            s.wrongAnswers + WrongAnswerModel(q, index)
         else s.wrongAnswers
 
         _state.value = s.copy(
@@ -71,7 +71,7 @@ class LearnWordViewModel @Inject constructor(
         val q = s.currentQuestion ?: return
 
         val wrong = if (!s.isReviewMode)
-            s.wrongAnswers + WrongAnswer(q, -1)
+            s.wrongAnswers + WrongAnswerModel(q, -1)
         else s.wrongAnswers
 
         _state.value = s.copy(

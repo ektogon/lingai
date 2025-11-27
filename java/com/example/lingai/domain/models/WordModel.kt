@@ -1,4 +1,4 @@
-package com.example.lingai.domain.model
+package com.example.lingai.domain.models
 
 data class Word(
     val original: String,

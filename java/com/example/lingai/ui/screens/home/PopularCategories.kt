@@ -2,14 +2,14 @@ package com.example.lingai.ui.screens.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.lingai.domain.model.LessonTopic
-import com.example.lingai.domain.model.Word
-import com.example.lingai.domain.model.WordStatus
+import com.example.lingai.domain.models.LessonTopicModel
+import com.example.lingai.domain.models.Word
+import com.example.lingai.domain.models.WordStatus
 
 @Composable
 fun PopularCategories() {
     val topics = listOf(
-        LessonTopic(
+        LessonTopicModel(
             id = 1,
             title = "Семья и друзья",
             translation = "Семья и друзья",
@@ -25,7 +25,7 @@ fun PopularCategories() {
                 Word("Child", "Ребёнок", "",WordStatus.NEW)
             )
         ),
-        LessonTopic(
+        LessonTopicModel(
             id = 2,
             title = "Семья и друзья",
             translation = "Хобби и увлечения",

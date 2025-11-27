@@ -17,7 +17,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = White,  // Цвет второстепенных элементов, используется в: AdviceCard - Box, CardBlock - Card, ProgressBar - Box, ExamPage - Row
     onSecondary = TextPrimary,  // Цвет текста на второстепенных элементах, используется в: AdviceCard - Text, CategoryCard - Text, ExamPage - Text, DailyGoalProgress - Text
     secondaryContainer = GreenLight,  // Цвет контейнера второстепенных элементов, используется в: AdviceCard - Box, ProgressBar - Box, ExamPage - Row
-    onSecondaryContainer = TextSecondary,  // Цвет текста на контейнере второстепенных элементов, используется в: AdviceCard - Text
+    onSecondaryContainer = gray_600,  // Цвет текста на контейнере второстепенных элементов, используется в: AdviceCard - Text
 
     background = Background,  // Цвет фона приложения, используется в: MainActivity - Box, MainNavigation - NavHost, LearnWordScreen - Box, FinishedScreen - Box, ProfilePage - Box, TopicUiMapper - mapToUi
     onBackground = TextPrimary,  // Цвет текста на фоне, используется в: ExamPage - Text, HomePage - Text
@@ -42,7 +42,7 @@ val DarkColorScheme = darkColorScheme(
     secondary = DarkCharcoal,
     onSecondary = LightSilver,
     secondaryContainer = SoftBlue,
-    onSecondaryContainer = TextPrimary,
+    onSecondaryContainer = gray_400,
 
     background = BackgroundDark,
     onBackground = LightSilver,

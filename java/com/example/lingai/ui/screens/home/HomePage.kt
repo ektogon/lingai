@@ -93,7 +93,7 @@ fun HomePage(navController: NavController) {
             )
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(50))
                     .background(OrangeLight)
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
@@ -105,7 +105,7 @@ fun HomePage(navController: NavController) {
                         Icons.Default.Bolt,
                         contentDescription = null,
                         tint = OrangePrimary,
-                        modifier = Modifier.size(14.dp)
+                        modifier = Modifier.size(18.dp)
                     )
                 }
             }

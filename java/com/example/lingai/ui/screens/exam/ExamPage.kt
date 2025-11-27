@@ -193,7 +193,7 @@ fun ExamModeOption(
         Text(emoji, fontSize = 20.sp, modifier = Modifier.padding(end = 8.dp))
         Column(Modifier.weight(1f)) {
             Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSecondary)
-            Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSecondary)
+            Text(description, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.lingai.ui.mappers
 
 import androidx.compose.ui.graphics.Color
-import com.example.lingai.domain.model.LessonTopic
+import com.example.lingai.domain.models.LessonTopicModel
 import com.example.lingai.ui.model.LessonTopicUi
 import com.example.lingai.ui.theme.BluePrimary
 import com.example.lingai.ui.theme.GreenPrimary
@@ -10,7 +10,7 @@ import com.example.lingai.ui.theme.RedPrimary
 import javax.inject.Inject
 
 class TopicUiMapper @Inject constructor(){
-    fun mapToUi(topics: List<LessonTopic>): List<LessonTopicUi> {
+    fun mapToUi(topics: List<LessonTopicModel>): List<LessonTopicUi> {
         return topics.mapIndexed { index, topic ->
             LessonTopicUi(
                 topic = topic,
@@ -21,7 +21,7 @@ class TopicUiMapper @Inject constructor(){
             )
         }
     }
-    private fun calculateProgress(topic: LessonTopic): Float {
+    private fun calculateProgress(topic: LessonTopicModel): Float {
         if (topic.totalWords == 0) return 0f
         return (topic.completedWords.toFloat() / topic.totalWords.toFloat()) * 100f
     }

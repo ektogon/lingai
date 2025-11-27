@@ -15,15 +15,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.lingai.ui.navigation.MainNavigation
 import com.example.lingai.ui.theme.LingaiTheme
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirebaseApp.initializeApp(this)
+
         enableEdgeToEdge()
         setContent {
-            var darkThemeOverride by remember{mutableStateOf<Boolean?>(null)}
+            var darkThemeOverride by remember { mutableStateOf<Boolean?>(null) }
             var darkTheme = darkThemeOverride ?: isSystemInDarkTheme()
 
             LingaiTheme(darkTheme = darkTheme) {
@@ -33,13 +37,14 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainNavigation(
-                        darkTheme =  darkTheme,
-                        onThemeUpdate = {darkThemeOverride = !darkTheme}
+                        darkTheme = darkTheme,
+                        onThemeUpdate = { darkThemeOverride = !darkTheme }
                     )
                 }
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
     }
