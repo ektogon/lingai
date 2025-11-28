@@ -2,11 +2,13 @@ package com.example.lingai.ui.screens.profile
 
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -43,6 +46,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lingai.R
 import com.example.lingai.ui.components.ContentColumn
@@ -69,6 +73,7 @@ fun ProfilePage(
     val stats by viewModel.stats.collectAsState()
     val achievements by viewModel.achievements.collectAsState()
     val error by viewModel.error.collectAsState()
+    val loading by viewModel.isLoading.collectAsState()
     // Если ошибка не null, показываем Toast
     LaunchedEffect(Unit) {
         viewModel.loadCurrentUserName()
@@ -78,7 +83,6 @@ fun ProfilePage(
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
     }
-
     ContentColumn(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Row(
             modifier = Modifier
@@ -107,7 +111,7 @@ fun ProfilePage(
                     viewModel.showRegisterDialog() // Показать диалог для регистрации
                 }
             })
-            Spacer(Modifier.height(30.dp))
+            Spacer(Modifier.height(20.dp))
             StatsGrid(stats)
         }
         Spacer(Modifier.height(20.dp))
@@ -133,6 +137,21 @@ fun ProfilePage(
             onDismiss = { viewModel.dismissDialogs() },
             onSwitchToLogin = { viewModel.showLoginDialog() },
         )
+    }
+    if (loading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()  // Заполняем весь экран
+                .background(Color.Black.copy(alpha = 0.5f))
+                .clickable(enabled = false, onClick = {})
+                .zIndex(1000f)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(60.dp)
+            )
+        }
     }
 }
 
@@ -196,8 +215,7 @@ fun Welcome(onClick: (String) -> Unit) {
 fun UserInfo(username: String, onLogout: () -> Unit) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 20.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

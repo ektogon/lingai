@@ -120,15 +120,15 @@ class ProfileViewModel @Inject constructor(
                         Log.d("ProfileViewModel", "User name loaded: ${result.data}")
                         _isLoggedIn.value = true
                         _userName.value =
-                            result.data ?: "Unknown User"  // Устанавливаем имя пользователя
+                            result.data ?: "Unknown User"
                     }
 
                     is NetworkResult.Error -> {
-                        _error.value = "Error loading name"  // Обработка ошибки
+                        _error.value = "Error loading name"
                     }
 
                     is NetworkResult.Loading -> {
-                        // Обработка состояния загрузки (например, можно показать индикатор загрузки)
+                        _isLoading.value = true
                     }
                 }
             }
@@ -152,12 +152,20 @@ class ProfileViewModel @Inject constructor(
                 when (result) {
                     is NetworkResult.Success -> {
                         _isLoggedIn.value = true
+                        _isLoading.value = false
                         loadCurrentUserName()
+                    }
+
+                    is NetworkResult.Loading -> {
+                        _isLoading.value = true
                         dismissDialogs()
                     }
 
-                    is NetworkResult.Error -> _error.value = result.message
-                    else -> {}
+                    is NetworkResult.Error -> {
+                        _error.value = result.message
+                        _isLoading.value = false
+                        showRegisterDialog()
+                    }
                 }
             }
         }
@@ -180,18 +188,20 @@ class ProfileViewModel @Inject constructor(
                         _isLoggedIn.value = true
                         _userName.value = result.data?.name ?: "Unknown"
                         Log.d("login", "Success: User logged in successfully")
-                        dismissDialogs() // Закрыть диалог входа
+                        _isLoading.value = false
                     }
 
                     is NetworkResult.Error -> {
                         // Если произошла ошибка, выводим ее сообщение
                         _error.value = result.message
+                        _isLoading.value = false
                         Log.d("login", "Error: ${result.message}")
+                        showLoginDialog()
                     }
 
                     is NetworkResult.Loading -> {
-                        // Можно отобразить индикатор загрузки, если нужно
-                        Log.d("login", "Logging in...")
+                        _isLoading.value = true
+                        dismissDialogs()
                     }
                 }
             }

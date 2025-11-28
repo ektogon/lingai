@@ -27,46 +27,26 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun firebaseSingUp(user: UserModel): Flow<NetworkResult<Boolean>> {
         return flow {
-            var isSuccess = false
-
-            emit(NetworkResult.Loading())
             try {
-                firebaseAuth.createUserWithEmailAndPassword(user.login, user.password)
-                    .addOnCompleteListener { task ->
-                        isSuccess = if (task.isSuccessful) {
-                            Log.d(TAG, "createUserWithEmailAndPassword:: success")
-                            val firebaseUser = firebaseAuth.currentUser
-                            if (firebaseUser != null) {
-                                user.userId = firebaseUser.uid
-                                val profileUpdates = UserProfileChangeRequest.Builder()
-                                    .setDisplayName(user.name)  // Устанавливаем имя пользователя
-                                    .build()
-
-                                firebaseUser.updateProfile(profileUpdates)
-                                    .addOnCompleteListener { profileTask ->
-                                        if (profileTask.isSuccessful) {
-                                            // Профиль обновлен успешно, можно продолжить
-                                            Log.d(
-                                                "Register",
-                                                "User profile updated with name: ${firebaseUser.displayName}"
-                                            )
-                                        }
-                                    }
-                            }
-                            firebaseFirestore.collection("users").document(firebaseUser?.uid ?: "")
-                                .set(user)
-                            true
-                        } else {
-                            Log.d(TAG, "createUserWithEmailAndPassword:: error", task.exception)
-                            false
-                        }
-                    }.await()
-                if (isSuccess) emit(NetworkResult.Success(true))
-                else emit(NetworkResult.Error("Registration failed1"))
-            } catch (e: Exception) {
-                emit(
-                    NetworkResult.Error(e.message ?: "Registration failed2")
-                )
+                firebaseAuth.createUserWithEmailAndPassword(user.login, user.password).await()
+                val firebaseUser = firebaseAuth.currentUser
+                if(firebaseUser != null) {
+                    val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(user.name).build()
+                    firebaseUser.updateProfile(profileUpdates).await()
+                    val userData = mapOf(
+                        "name" to user.name,
+                        "email" to user.login
+                    )
+                    firebaseFirestore.collection("users").document(firebaseUser.uid)
+                        .set(userData)
+                        .await()
+                    emit(NetworkResult.Success(true))
+                }
+                else {
+                    emit(NetworkResult.Error("Registration failed"))
+                }
+            }catch (e: Exception){
+                emit(NetworkResult.Error(e.message ?: "Registration failed"))
             }
         }
 
@@ -93,7 +73,8 @@ class AuthRepositoryImpl @Inject constructor(
 
                     // Получаем имя пользователя и email из Firestore
                     val userName = userDoc.getString("name") ?: "Неизвестный пользователь"
-                    val userEmail = userDoc.getString("email") ?: email // Если email пустой, берем из Firebase
+                    val userEmail =
+                        userDoc.getString("email") ?: email // Если email пустой, берем из Firebase
 
                     // Создаем объект UserModel
                     val userModel = UserModel(
