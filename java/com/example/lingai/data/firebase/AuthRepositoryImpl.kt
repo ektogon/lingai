@@ -1,9 +1,9 @@
 package com.example.lingai.data.firebase
 
 import android.util.Log
-import com.example.lingai.domain.models.NetworkResult
 import com.example.lingai.domain.models.UserModel
 import com.example.lingai.domain.repository.AuthRepository
+import com.example.lingai.utils.NetworkResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,6 +17,32 @@ class AuthRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
 ) : AuthRepository {
     val TAG = "AuthRepositoryImpl"
+    override suspend fun getCurrentUser(): Flow<NetworkResult<UserModel>> {
+        return flow {
+            val firebaseUser = firebaseAuth.currentUser
+            if (firebaseUser != null) {
+                val userName = firebaseUser.displayName ?: "Неизвестный пользователь"
+                val userEmail = firebaseUser.email ?: "Неизвестный Email"
+                val userModel = UserModel(
+                    userId = firebaseUser.uid,
+                    login = userEmail,
+                    password = "",  // Пароль не хранится
+                    name = userName
+                )
+                emit(NetworkResult.Success(userModel))
+            } else {
+                // Логика для гостевого пользователя (если нужно)
+                val guestUser = UserModel(
+                    userId = "__guest__",
+                    login = "",
+                    password = "",
+                    name = ""
+                )
+                emit(NetworkResult.Success(guestUser))
+            }
+        }
+    }
+
     override suspend fun getCurrentUserName(): Flow<NetworkResult<String>> {
         return flow {
             val userName = FirebaseAuth.getInstance().currentUser?.displayName ?: "Unknown User"
@@ -28,6 +54,7 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun firebaseSingUp(user: UserModel): Flow<NetworkResult<Boolean>> {
         return flow {
             try {
+                emit(NetworkResult.Loading())
                 firebaseAuth.createUserWithEmailAndPassword(user.login, user.password).await()
                 val firebaseUser = firebaseAuth.currentUser
                 if(firebaseUser != null) {

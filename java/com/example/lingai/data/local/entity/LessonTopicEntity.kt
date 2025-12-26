@@ -17,8 +17,5 @@ data class LessonTopicEntity(
     val title: String,
     val translation: String,
     val emoji: String,
-    val level: String,
-    val totalWords: Int,
-    val completedWords: Int,
-    val learningWords: Int
+    val level: String
 )

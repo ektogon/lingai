@@ -13,8 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.lingai.ui.navigation.MainNavigation
-import com.example.lingai.ui.theme.LingaiTheme
+import com.example.lingai.presentation.navigation.MainNavigation
+import com.example.lingai.presentation.theme.LingaiTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

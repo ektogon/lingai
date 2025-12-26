@@ -1,7 +1,7 @@
 package com.example.lingai.domain.models
 
 data class QuestionModel(
-    val correctAnswer: Word,
-    val variants: List<Word>,
+    val correctAnswer: WordModel,
+    val variants: List<WordModel>,
     val correctIndex: Int
 )

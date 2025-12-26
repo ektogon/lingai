@@ -26,5 +26,4 @@ data class WordEntity(
     val original: String,
     val translation: String,
     val transcription: String,
-    val status: String
 )

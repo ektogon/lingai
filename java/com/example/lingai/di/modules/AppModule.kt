@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.room.Room
 import com.example.lingai.data.local.AppDatabase
 import com.example.lingai.data.local.dao.LessonTopicDao
+import com.example.lingai.data.local.dao.TopicProgressDao
 import com.example.lingai.data.local.dao.WordDao
+import com.example.lingai.data.local.dao.WordProgressDao
+import com.example.lingai.tts.TtsSpeaker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,10 +40,29 @@ object AppModule {
         return database.lessonTopicDao()
     }
 
+    @Provides
+    @Singleton
+    fun provideTopicProgressDao(database: AppDatabase): TopicProgressDao {
+        return database.topicProgressDao()
+    }
+
+
     // Предоставляем WordDao
     @Provides
     @Singleton
     fun provideWordDao(database: AppDatabase): WordDao {
         return database.wordDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideWordProgressDao(database: AppDatabase): WordProgressDao {
+        return database.wordProgressDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTtsSpeaker(
+        @ApplicationContext context: Context
+    ): TtsSpeaker = TtsSpeaker(context)
 }
